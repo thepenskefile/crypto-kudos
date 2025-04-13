@@ -2,7 +2,7 @@
 
 import { Button } from "@repo/ui";
 import { useTheme } from "next-themes";
-
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 export default function Home() {
   const { theme, setTheme } = useTheme();
   return (
@@ -15,6 +15,7 @@ export default function Home() {
       >
         Theme toggle
       </Button>
+      <ConnectButton />
     </div>
   );
 }

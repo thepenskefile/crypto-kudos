@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 
 import "./globals.css";
+import { Web3Provider } from "./providers/Web3Provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,7 +33,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Web3Provider>{children}</Web3Provider>
         </ThemeProvider>
       </body>
     </html>
