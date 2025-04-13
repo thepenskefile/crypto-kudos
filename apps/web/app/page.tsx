@@ -1,18 +1,10 @@
 "use client";
 
-import { Button, Table, Pagination } from "@repo/ui";
+import { Button, Table } from "@repo/ui";
 import { useTheme } from "next-themes";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useKudos } from "./hooks/useKudos";
 import type { Kudos } from "@repo/shared/contracts/types/Kudos";
-
-// Custom serializer to handle BigInt values
-const serializer = (key: string, value: any) => {
-  if (typeof value === "bigint") {
-    return value.toString();
-  }
-  return value;
-};
 
 export default function Home() {
   const { theme, setTheme } = useTheme();
@@ -44,7 +36,15 @@ export default function Home() {
           <h2 className="text-2xl font-semibold mb-4">Kudos Received</h2>
           {receivedKudos && receivedKudos.kudos.length > 0 ? (
             <div>
-              <Table>
+              <Table
+                paginationProps={{
+                  currentPage: Number(receivedKudos.currentPage),
+                  totalPages: Number(receivedKudos.totalPages),
+                  totalItems: Number(receivedKudos.totalItems),
+                  setCurrentPage: () => {},
+                  isLoading: false,
+                }}
+              >
                 <Table.Head>
                   <Table.Row>
                     <Table.HeadCell>From</Table.HeadCell>
@@ -66,14 +66,6 @@ export default function Home() {
                   ))}
                 </Table.Body>
               </Table>
-              <Pagination
-                paginationData={receivedKudos}
-                currentPage={1}
-                currentLimit={10}
-                setCurrentPage={() => {}}
-                setCurrentLimit={() => {}}
-                isLoading={false}
-              />
             </div>
           ) : (
             <p className="text-text-secondary-light dark:text-text-secondary-dark">
@@ -86,7 +78,15 @@ export default function Home() {
           <h2 className="text-2xl font-semibold mb-4">Kudos Sent</h2>
           {sentKudos && sentKudos.kudos.length > 0 ? (
             <div>
-              <Table>
+              <Table
+                paginationProps={{
+                  currentPage: Number(sentKudos.currentPage),
+                  totalPages: Number(sentKudos.totalPages),
+                  totalItems: Number(sentKudos.totalItems),
+                  setCurrentPage: () => {},
+                  isLoading: false,
+                }}
+              >
                 <Table.Head>
                   <Table.Row>
                     <Table.HeadCell>To</Table.HeadCell>
@@ -108,14 +108,6 @@ export default function Home() {
                   ))}
                 </Table.Body>
               </Table>
-              <Pagination
-                paginationData={sentKudos}
-                currentPage={1}
-                currentLimit={10}
-                setCurrentPage={() => {}}
-                setCurrentLimit={() => {}}
-                isLoading={false}
-              />
             </div>
           ) : (
             <p className="text-text-secondary-light dark:text-text-secondary-dark">
