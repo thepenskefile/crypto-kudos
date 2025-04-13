@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Background Colors */
+  --color-bg-light: rgb(249, 249, 249);
+  --color-bg-dark: rgb(23, 23, 25);
+
+  /* Surface Colors (for cards, modals, etc.) */
+  --color-surface-light: rgb(255, 255, 255);
+  --color-surface-dark: rgb(31, 31, 33);
+
+  /* Text Colors */
+  --color-text-primary-light: rgb(23, 23, 25);
+  --color-text-primary-dark: rgb(249, 249, 249);
+  --color-text-secondary-light: rgb(82, 82, 91);
+  --color-text-secondary-dark: rgb(161, 161, 170);
+
+  /* Accent Colors (Orange Theme) */
+  --color-accent-primary: rgb(249, 115, 22); /* orange-500 */
+  --color-accent-primary-hover: rgb(234, 88, 12); /* orange-600 */
+  --color-accent-secondary: rgb(255, 237, 213); /* orange-50 */
+  --color-accent-secondary-hover: rgb(255, 247, 237); /* orange-100 */
+
+  /* Border Colors */
+  --color-border-light: rgb(229, 229, 229);
+  --color-border-dark: rgb(39, 39, 42);
+}
+
+html,
+body {
+  @apply bg-bg-light dark:bg-bg-dark text-text-primary-light dark:text-text-primary-dark text-base;
+  @apply transition-colors duration-200;
+}
