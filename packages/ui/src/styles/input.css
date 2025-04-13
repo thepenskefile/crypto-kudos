@@ -4,28 +4,34 @@
 
 @theme {
   /* Background Colors */
-  --color-bg-light: rgb(249, 249, 249);
-  --color-bg-dark: rgb(23, 23, 25);
+  --color-bg-light: rgb(253, 245, 230); /* Warm cream */
+  --color-bg-dark: rgb(30, 25, 20); /* Deep warm brown */
 
   /* Surface Colors (for cards, modals, etc.) */
-  --color-surface-light: rgb(255, 255, 255);
-  --color-surface-dark: rgb(31, 31, 33);
+  --color-surface-light: rgb(255, 250, 240); /* Slightly lighter cream */
+  --color-surface-dark: rgb(40, 35, 30); /* Slightly lighter warm brown */
 
   /* Text Colors */
-  --color-text-primary-light: rgb(23, 23, 25);
-  --color-text-primary-dark: rgb(249, 249, 249);
-  --color-text-secondary-light: rgb(82, 82, 91);
-  --color-text-secondary-dark: rgb(161, 161, 170);
+  --color-text-primary-light: rgb(40, 30, 20); /* Warm dark brown */
+  --color-text-primary-dark: rgb(253, 245, 230); /* Cream */
+  --color-text-secondary-light: rgb(100, 80, 60); /* Warm medium brown */
+  --color-text-secondary-dark: rgb(200, 190, 180); /* Light warm gray */
 
   /* Accent Colors (Orange Theme) */
-  --color-accent-primary: rgb(249, 115, 22); /* orange-500 */
-  --color-accent-primary-hover: rgb(234, 88, 12); /* orange-600 */
-  --color-accent-secondary: rgb(255, 237, 213); /* orange-50 */
-  --color-accent-secondary-hover: rgb(255, 247, 237); /* orange-100 */
+  --color-accent-primary: var(--color-orange-500); /* Warm orange */
+  --color-accent-primary-hover: var(
+    --color-orange-600
+  ); /* Slightly darker orange */
+  --color-accent-secondary: rgb(255, 240, 220); /* Light warm orange */
+  --color-accent-secondary-hover: rgb(
+    255,
+    250,
+    240
+  ); /* Very light warm orange */
 
   /* Border Colors */
-  --color-border-light: rgb(229, 229, 229);
-  --color-border-dark: rgb(39, 39, 42);
+  --color-border-light: rgb(230, 220, 210); /* Light warm gray */
+  --color-border-dark: rgb(50, 45, 40); /* Dark warm gray */
 }
 
 html,

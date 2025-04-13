@@ -7,16 +7,8 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-orange-50: oklch(98% 0.016 73.684);
-    --color-orange-100: oklch(95.4% 0.038 75.164);
-    --color-orange-200: oklch(90.1% 0.076 70.697);
-    --color-orange-300: oklch(83.7% 0.128 66.29);
-    --color-orange-400: oklch(75% 0.183 55.934);
     --color-orange-500: oklch(70.5% 0.213 47.604);
     --color-orange-600: oklch(64.6% 0.222 41.116);
-    --color-orange-700: oklch(55.3% 0.195 38.402);
-    --color-orange-800: oklch(47% 0.157 37.304);
-    --color-orange-900: oklch(40.8% 0.123 38.172);
     --color-white: #fff;
     --spacing: 0.25rem;
     --text-sm: 0.875rem;
@@ -31,10 +23,22 @@
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
-    --color-bg-light: rgb(249, 249, 249);
-    --color-bg-dark: rgb(23, 23, 25);
-    --color-text-primary-light: rgb(23, 23, 25);
-    --color-text-primary-dark: rgb(249, 249, 249);
+    --color-bg-light: rgb(253, 245, 230);
+    --color-bg-dark: rgb(30, 25, 20);
+    --color-surface-light: rgb(255, 250, 240);
+    --color-surface-dark: rgb(40, 35, 30);
+    --color-text-primary-light: rgb(40, 30, 20);
+    --color-text-primary-dark: rgb(253, 245, 230);
+    --color-accent-primary: var(--color-orange-500);
+    --color-accent-primary-hover: var(
+    --color-orange-600
+  );
+    --color-accent-secondary: rgb(255, 240, 220);
+    --color-accent-secondary-hover: rgb(
+    255,
+    250,
+    240
+  );
   }
 }
 @layer base {
@@ -211,14 +215,14 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
-  .border-orange-500 {
-    border-color: var(--color-orange-500);
+  .border-accent-primary {
+    border-color: var(--color-accent-primary);
   }
-  .bg-orange-500 {
-    background-color: var(--color-orange-500);
+  .bg-accent-primary {
+    background-color: var(--color-accent-primary);
   }
-  .bg-white {
-    background-color: var(--color-white);
+  .bg-surface-light {
+    background-color: var(--color-surface-light);
   }
   .px-3 {
     padding-inline: calc(var(--spacing) * 3);
@@ -245,8 +249,8 @@
     --tw-font-weight: var(--font-weight-medium);
     font-weight: var(--font-weight-medium);
   }
-  .text-orange-600 {
-    color: var(--color-orange-600);
+  .text-text-primary-light {
+    color: var(--color-text-primary-light);
   }
   .text-white {
     color: var(--color-white);
@@ -260,17 +264,17 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
-  .hover\:bg-orange-50 {
+  .hover\:bg-accent-primary-hover {
     &:hover {
       @media (hover: hover) {
-        background-color: var(--color-orange-50);
+        background-color: var(--color-accent-primary-hover);
       }
     }
   }
-  .hover\:bg-orange-600 {
+  .hover\:bg-accent-secondary {
     &:hover {
       @media (hover: hover) {
-        background-color: var(--color-orange-600);
+        background-color: var(--color-accent-secondary);
       }
     }
   }
@@ -280,14 +284,14 @@
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
-  .focus-visible\:ring-orange-200 {
+  .focus-visible\:ring-accent-primary {
     &:focus-visible {
-      --tw-ring-color: var(--color-orange-200);
+      --tw-ring-color: var(--color-accent-primary);
     }
   }
-  .focus-visible\:ring-orange-500 {
+  .focus-visible\:ring-accent-secondary {
     &:focus-visible {
-      --tw-ring-color: var(--color-orange-500);
+      --tw-ring-color: var(--color-accent-secondary);
     }
   }
   .focus-visible\:ring-offset-2 {
@@ -312,79 +316,51 @@
       opacity: 50%;
     }
   }
-  .dark\:border-orange-400 {
+  .dark\:border-accent-primary {
     &:where(.dark, .dark *) {
-      border-color: var(--color-orange-400);
+      border-color: var(--color-accent-primary);
     }
   }
-  .dark\:bg-orange-600 {
+  .dark\:bg-accent-primary {
     &:where(.dark, .dark *) {
-      background-color: var(--color-orange-600);
+      background-color: var(--color-accent-primary);
     }
   }
-  .dark\:bg-orange-900 {
+  .dark\:bg-surface-dark {
     &:where(.dark, .dark *) {
-      background-color: var(--color-orange-900);
+      background-color: var(--color-surface-dark);
     }
   }
-  .dark\:text-orange-100 {
+  .dark\:text-text-primary-dark {
     &:where(.dark, .dark *) {
-      color: var(--color-orange-100);
+      color: var(--color-text-primary-dark);
     }
   }
-  .dark\:text-orange-300 {
-    &:where(.dark, .dark *) {
-      color: var(--color-orange-300);
-    }
-  }
-  .dark\:hover\:bg-orange-700 {
+  .dark\:hover\:bg-accent-primary-hover {
     &:where(.dark, .dark *) {
       &:hover {
         @media (hover: hover) {
-          background-color: var(--color-orange-700);
+          background-color: var(--color-accent-primary-hover);
         }
       }
     }
   }
-  .dark\:hover\:bg-orange-800 {
+  .dark\:hover\:bg-surface-light\/10 {
     &:where(.dark, .dark *) {
       &:hover {
         @media (hover: hover) {
-          background-color: var(--color-orange-800);
-        }
-      }
-    }
-  }
-  .dark\:hover\:bg-orange-900\/50 {
-    &:where(.dark, .dark *) {
-      &:hover {
-        @media (hover: hover) {
-          background-color: color-mix(in srgb, oklch(40.8% 0.123 38.172) 50%, transparent);
+          background-color: color-mix(in srgb, rgb(255, 250, 240) 10%, transparent);
           @supports (color: color-mix(in lab, red, red)) {
-            background-color: color-mix(in oklab, var(--color-orange-900) 50%, transparent);
+            background-color: color-mix(in oklab, var(--color-surface-light) 10%, transparent);
           }
         }
       }
     }
   }
-  .dark\:focus-visible\:ring-orange-400 {
+  .dark\:focus-visible\:ring-accent-primary {
     &:where(.dark, .dark *) {
       &:focus-visible {
-        --tw-ring-color: var(--color-orange-400);
-      }
-    }
-  }
-  .dark\:focus-visible\:ring-orange-600 {
-    &:where(.dark, .dark *) {
-      &:focus-visible {
-        --tw-ring-color: var(--color-orange-600);
-      }
-    }
-  }
-  .dark\:focus-visible\:ring-orange-800 {
-    &:where(.dark, .dark *) {
-      &:focus-visible {
-        --tw-ring-color: var(--color-orange-800);
+        --tw-ring-color: var(--color-accent-primary);
       }
     }
   }

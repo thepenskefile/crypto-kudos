@@ -25,11 +25,11 @@ export const Button = ({
         "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
         {
           // Variants
-          "bg-orange-500 text-white hover:bg-orange-600 focus-visible:ring-orange-500 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus-visible:ring-orange-600":
+          "bg-accent-primary text-white hover:bg-accent-primary-hover focus-visible:ring-accent-primary dark:bg-accent-primary dark:hover:bg-accent-primary-hover dark:focus-visible:ring-accent-primary":
             variant === "primary",
-          "bg-white text-orange-600 hover:bg-orange-50 focus-visible:ring-orange-200 dark:bg-orange-900 dark:text-orange-100 dark:hover:bg-orange-800 dark:focus-visible:ring-orange-800":
+          "bg-surface-light text-text-primary-light hover:bg-accent-secondary focus-visible:ring-accent-secondary dark:bg-surface-dark dark:text-text-primary-dark dark:hover:bg-surface-light/10 dark:focus-visible:ring-accent-primary":
             variant === "secondary",
-          "border border-orange-500 text-orange-600 hover:bg-orange-50 focus-visible:ring-orange-500 dark:border-orange-400 dark:text-orange-300 dark:hover:bg-orange-900/50 dark:focus-visible:ring-orange-400":
+          "border border-accent-primary text-text-primary-light hover:bg-accent-secondary focus-visible:ring-accent-primary dark:border-accent-primary dark:text-text-primary-dark dark:hover:bg-surface-light/10 dark:focus-visible:ring-accent-primary":
             variant === "outline",
 
           // Sizes
