@@ -22,7 +22,7 @@ export const Button = ({
       type={type}
       disabled={disabled}
       className={cn(
-        "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
+        "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer font-semibold",
         {
           // Variants
           "bg-accent-primary text-white hover:bg-accent-primary-hover focus-visible:ring-accent-primary dark:bg-accent-primary dark:hover:bg-accent-primary-hover dark:focus-visible:ring-accent-primary":
