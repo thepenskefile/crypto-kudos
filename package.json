@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "crypto-kudos",
   "private": true,
   "scripts": {
     "build": "turbo run build",
