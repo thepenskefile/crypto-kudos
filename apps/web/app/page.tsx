@@ -1,9 +1,10 @@
 "use client";
 
-import { Button } from "@repo/ui";
+import { Button, Table, Pagination } from "@repo/ui";
 import { useTheme } from "next-themes";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useKudos } from "./hooks/useKudos";
+import type { Kudos } from "@repo/shared/contracts/types/Kudos";
 
 // Custom serializer to handle BigInt values
 const serializer = (key: string, value: any) => {
@@ -16,6 +17,11 @@ const serializer = (key: string, value: any) => {
 export default function Home() {
   const { theme, setTheme } = useTheme();
   const { kudosReceived, kudosSent, sendKudo } = useKudos();
+
+  const receivedKudos = kudosReceived as
+    | Kudos.PaginatedKudosStructOutput
+    | undefined;
+  const sentKudos = kudosSent as Kudos.PaginatedKudosStructOutput | undefined;
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
@@ -36,20 +42,86 @@ export default function Home() {
       <div className="space-y-8">
         <div className="bg-card rounded-lg p-6">
           <h2 className="text-2xl font-semibold mb-4">Kudos Received</h2>
-          <pre className="bg-muted p-4 rounded overflow-auto">
-            {kudosReceived
-              ? JSON.stringify(kudosReceived, serializer, 2)
-              : "No kudos received yet"}
-          </pre>
+          {receivedKudos && receivedKudos.kudos.length > 0 ? (
+            <div>
+              <Table>
+                <Table.Head>
+                  <Table.Row>
+                    <Table.HeadCell>From</Table.HeadCell>
+                    <Table.HeadCell>Message</Table.HeadCell>
+                    <Table.HeadCell>Date</Table.HeadCell>
+                  </Table.Row>
+                </Table.Head>
+                <Table.Body>
+                  {receivedKudos.kudos.map((kudo, index) => (
+                    <Table.Row key={index}>
+                      <Table.Cell>{kudo.from}</Table.Cell>
+                      <Table.Cell>{kudo.message}</Table.Cell>
+                      <Table.Cell>
+                        {new Date(
+                          Number(kudo.timestamp) * 1000
+                        ).toLocaleDateString()}
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table>
+              <Pagination
+                paginationData={receivedKudos}
+                currentPage={1}
+                currentLimit={10}
+                setCurrentPage={() => {}}
+                setCurrentLimit={() => {}}
+                isLoading={false}
+              />
+            </div>
+          ) : (
+            <p className="text-text-secondary-light dark:text-text-secondary-dark">
+              No kudos received yet
+            </p>
+          )}
         </div>
 
         <div className="bg-card rounded-lg p-6">
           <h2 className="text-2xl font-semibold mb-4">Kudos Sent</h2>
-          <pre className="bg-muted p-4 rounded overflow-auto">
-            {kudosSent
-              ? JSON.stringify(kudosSent, serializer, 2)
-              : "No kudos sent yet"}
-          </pre>
+          {sentKudos && sentKudos.kudos.length > 0 ? (
+            <div>
+              <Table>
+                <Table.Head>
+                  <Table.Row>
+                    <Table.HeadCell>To</Table.HeadCell>
+                    <Table.HeadCell>Message</Table.HeadCell>
+                    <Table.HeadCell>Date</Table.HeadCell>
+                  </Table.Row>
+                </Table.Head>
+                <Table.Body>
+                  {sentKudos.kudos.map((kudo, index) => (
+                    <Table.Row key={index}>
+                      <Table.Cell>{kudo.to}</Table.Cell>
+                      <Table.Cell>{kudo.message}</Table.Cell>
+                      <Table.Cell>
+                        {new Date(
+                          Number(kudo.timestamp) * 1000
+                        ).toLocaleDateString()}
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table>
+              <Pagination
+                paginationData={sentKudos}
+                currentPage={1}
+                currentLimit={10}
+                setCurrentPage={() => {}}
+                setCurrentLimit={() => {}}
+                isLoading={false}
+              />
+            </div>
+          ) : (
+            <p className="text-text-secondary-light dark:text-text-secondary-dark">
+              No kudos sent yet
+            </p>
+          )}
         </div>
 
         <div className="bg-card rounded-lg p-6">
