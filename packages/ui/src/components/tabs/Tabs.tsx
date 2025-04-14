@@ -62,13 +62,7 @@ export function TabContainer({
 
   return (
     <TabContext.Provider value={value}>
-      <div
-        className={cn(
-          "bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden",
-          className
-        )}
-        role="tablist"
-      >
+      <div className={cn("overflow-hidden", className)} role="tablist">
         {children}
       </div>
     </TabContext.Provider>
@@ -77,13 +71,7 @@ export function TabContainer({
 
 export function TabList({ children, className = "" }: TabListProps) {
   return (
-    <div
-      className={cn(
-        "flex gap-1 p-2 bg-gray-50 dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700",
-        className
-      )}
-      role="tablist"
-    >
+    <div className={cn("flex", className)} role="tablist">
       {children}
     </div>
   );
@@ -111,10 +99,10 @@ export function TabTrigger({
         }
       }}
       className={cn(
-        "px-4 py-2 rounded-lg font-medium transition-all duration-200 cursor-pointer",
+        "transition-all duration-200 cursor-pointer",
         isActive
-          ? "bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 shadow-sm"
-          : "text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50 hover:text-purple-600 dark:hover:text-purple-400",
+          ? "bg-white dark:bg-gray-800 shadow-sm"
+          : "text-gray-500 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50",
         className
       )}
     >
@@ -134,7 +122,7 @@ export function TabPanel({ value, children, className = "" }: TabPanelProps) {
       role="tabpanel"
       id={`panel-${value}`}
       aria-labelledby={`tab-${value}`}
-      className={cn("p-6", className)}
+      className={cn(className)}
     >
       {children}
     </div>

@@ -22,14 +22,14 @@ export const Button = ({
       type={type}
       disabled={disabled}
       className={cn(
-        "inline-flex items-center justify-center rounded-2xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer font-semibold hover:scale-[1.02] shadow-md",
+        "inline-flex items-center justify-center rounded-xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer font-semibold hover:scale-[1.02] shadow-md",
         {
           // Variants
-          "bg-accent-primary text-white hover:brightness-105 active:brightness-95 focus-visible:ring-accent-primary dark:bg-accent-primary dark:hover:brightness-105 dark:active:brightness-95 dark:focus-visible:ring-accent-primary":
+          "bg-blue-500 text-white hover:brightness-105 active:brightness-95 focus-visible:ring-blue-500 dark:bg-blue-400":
             variant === "primary",
-          "bg-surface-light text-text-primary-light hover:brightness-95 active:brightness-90 focus-visible:ring-accent-secondary dark:bg-surface-dark dark:text-text-primary-dark dark:hover:brightness-125 dark:active:brightness-110 dark:focus-visible:ring-accent-primary":
+          "bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100 focus-visible:ring-gray-500 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 dark:active:bg-gray-600":
             variant === "secondary",
-          "border border-accent-primary text-text-primary-light hover:bg-accent-secondary/10 active:bg-accent-secondary/20 focus-visible:ring-accent-primary dark:border-accent-primary dark:text-text-primary-dark dark:hover:bg-surface-light/10 dark:active:bg-surface-light/20 dark:focus-visible:ring-accent-primary":
+          "border-2 border-blue-500 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-50 active:bg-blue-100 focus-visible:ring-blue-500 dark:hover:bg-blue-500/10 dark:active:bg-blue-500/20":
             variant === "outline",
 
           // Sizes

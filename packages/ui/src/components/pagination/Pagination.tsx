@@ -46,7 +46,7 @@ export function Pagination({
           "p-2 rounded-lg transition-all duration-200 cursor-pointer",
           "disabled:opacity-50 disabled:cursor-not-allowed",
           "hover:bg-gray-100 dark:hover:bg-gray-700",
-          "text-purple-600 dark:text-purple-400"
+          "text-blue-600 dark:text-blue-400"
         )}
       >
         ←
@@ -57,7 +57,7 @@ export function Pagination({
           page === "..." ? (
             <span
               key={`ellipsis-${index}`}
-              className="w-8 h-8 flex items-center justify-center text-purple-600 dark:text-purple-400"
+              className="w-8 h-8 flex items-center justify-center text-blue-600 dark:text-blue-400"
             >
               {page}
             </span>
@@ -68,8 +68,8 @@ export function Pagination({
               className={cn(
                 "w-8 h-8 rounded-lg font-medium transition-all duration-200 cursor-pointer",
                 currentPage === page
-                  ? "bg-purple-600 dark:bg-purple-400 text-white"
-                  : "hover:bg-gray-100 dark:hover:bg-gray-700 text-purple-600 dark:text-purple-400"
+                  ? "bg-blue-600 dark:bg-blue-400 text-white"
+                  : "hover:bg-gray-100 dark:hover:bg-gray-700 text-blue-600 dark:text-blue-400"
               )}
             >
               {page}
@@ -85,7 +85,7 @@ export function Pagination({
           "p-2 rounded-lg transition-all duration-200 cursor-pointer",
           "disabled:opacity-50 disabled:cursor-not-allowed",
           "hover:bg-gray-100 dark:hover:bg-gray-700",
-          "text-purple-600 dark:text-purple-400"
+          "text-blue-600 dark:text-blue-400"
         )}
       >
         →

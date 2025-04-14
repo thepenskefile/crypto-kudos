@@ -50,7 +50,7 @@ export default function Home() {
             <div className="self-end mb-4">
               <ThemeSwitcher />
             </div>
-            <h1 className="text-6xl font-bold mb-6 text-purple-600 dark:text-purple-400 tracking-tight sm:text-7xl">
+            <h1 className="text-6xl font-bold mb-6 text-blue-600 dark:text-blue-400 tracking-tight sm:text-7xl">
               Crypto Kudos
             </h1>
             <p className="text-xl text-text-secondary-light dark:text-text-secondary-dark mb-10 max-w-2xl leading-8">
@@ -66,10 +66,10 @@ export default function Home() {
         {isConnected ? (
           <div className="space-y-12">
             {/* Action Bar */}
-            <div className="flex items-center justify-between bg-gradient-to-r from-purple-600/10 to-pink-600/10 dark:from-purple-400/10 dark:to-pink-400/10 rounded-2xl px-8 py-5 border border-purple-100 dark:border-purple-900/20">
+            <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-500/5 rounded-2xl px-8 py-5 border border-blue-100 dark:border-blue-500/20">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">👋</span>
-                <span className="text-lg text-purple-600 dark:text-purple-400">
+                <span className="text-lg text-blue-600 dark:text-blue-400">
                   Welcome back!
                 </span>
               </div>
@@ -81,32 +81,38 @@ export default function Home() {
             </div>
 
             {/* Tabs */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-600">
               <Tab.Container defaultValue="received">
-                <Tab.List className="flex border-b border-gray-100 dark:border-gray-700">
+                <Tab.List className="flex gap-2 p-2 bg-gray-50/80 dark:bg-gray-900/50">
                   <Tab.Trigger
                     value="received"
-                    className="flex-1 text-lg px-6 py-4"
+                    className="flex-1 text-base px-4 py-2 rounded-xl"
                   >
                     <span className="flex items-center gap-2 justify-center">
-                      <span className="text-2xl">🎁</span> Kudos Received
+                      <span className="text-xl">🎁</span>
+                      <span className="text-gray-600 dark:text-gray-300 font-medium">
+                        Kudos Received
+                      </span>
                     </span>
                   </Tab.Trigger>
                   <Tab.Trigger
                     value="sent"
-                    className="flex-1 text-lg px-6 py-4"
+                    className="flex-1 text-base px-4 py-2 rounded-xl"
                   >
                     <span className="flex items-center gap-2 justify-center">
-                      <span className="text-2xl">💝</span> Kudos Sent
+                      <span className="text-xl">💝</span>
+                      <span className="text-gray-600 dark:text-gray-300 font-medium">
+                        Kudos Sent
+                      </span>
                     </span>
                   </Tab.Trigger>
                 </Tab.List>
 
                 <Tab.Content>
-                  <Tab.Panel value="received" className="p-6">
+                  <Tab.Panel value="received" className="p-4">
                     <KudosReceived />
                   </Tab.Panel>
-                  <Tab.Panel value="sent" className="p-6">
+                  <Tab.Panel value="sent" className="p-4">
                     <KudosSent />
                   </Tab.Panel>
                 </Tab.Content>
