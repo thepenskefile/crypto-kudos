@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Table, PageContent } from "@repo/ui";
+import { Button, Table, PageContent, Input, Textarea } from "@repo/ui";
 import { useTheme } from "next-themes";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
@@ -10,10 +10,27 @@ function truncateAddress(address: string) {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
+interface FormElements extends HTMLFormControlsCollection {
+  toAddress: HTMLInputElement;
+  message: HTMLTextAreaElement;
+}
+interface UsernameFormElement extends HTMLFormElement {
+  readonly elements: FormElements;
+}
+
 export default function Home() {
   const { theme, setTheme } = useTheme();
   const { kudosReceived, kudosSent, sendKudo } = useKudos();
   const { isConnected } = useAccount();
+
+  function handleSendKudo(event: React.FormEvent<UsernameFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    sendKudo(
+      form.elements.toAddress.value as `0x${string}`,
+      form.elements.message.value
+    );
+  }
 
   return (
     <PageContent>
@@ -133,21 +150,20 @@ export default function Home() {
 
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-gray-700">
             <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-purple-600 dark:text-purple-400">
-              <span>💌</span> Send a Kudo
+              <span>💌</span> Send kudos
             </h2>
-            <Button
-              variant="primary"
-              size="md"
-              onClick={async () => {
-                sendKudo(
-                  "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-                  "Hello World"
-                );
-              }}
-              className="hover:scale-105 transition-transform"
-            >
-              Send Test Kudo
-            </Button>
+            <form onSubmit={handleSendKudo} className="space-y-2">
+              <Input label="To address" name="toAddress" />
+              <Textarea label="Message" name="message" />
+              <Button
+                variant="primary"
+                size="md"
+                className="hover:scale-105 transition-transform"
+                type="submit"
+              >
+                Send Kudos
+              </Button>
+            </form>
           </div>
         </div>
       ) : (
