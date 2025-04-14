@@ -13,6 +13,7 @@
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.2.4",
     "@repo/ui": "*",
+    "@repo/shared": "*",
     "@tailwindcss/postcss": "^4.1.3",
     "@tanstack/react-query": "^5.73.3",
     "next": "^15.2.4",

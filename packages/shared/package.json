@@ -2,19 +2,20 @@
   "name": "@repo/shared",
   "version": "0.0.0",
   "private": true,
-  "main": "./index.ts",
-  "types": "./index.ts",
   "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "lint": "eslint .",
-    "build": "tsup",
-    "build:watch": "tsup --watch",
-    "clean": "rm -rf .turbo node_modules"
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "lint": "eslint ."
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "tsup": "^8.0.2",
     "typescript": "5.8.2"
   }
 }
