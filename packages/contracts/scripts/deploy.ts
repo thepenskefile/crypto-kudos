@@ -27,11 +27,6 @@ async function main() {
     network: "localhost", // This will be updated based on the network you deploy to
   };
 
-  // fs.writeFileSync(
-  //   path.join(sharedDir, "kudos.json"),
-  //   JSON.stringify(deploymentInfo, null, 2)
-  // );
-
   const fileContent = `// AUTO-GENERATED ABI FILE
   export const kudosDeployment = ${JSON.stringify(deploymentInfo, null, 2)} as const;
   `;
