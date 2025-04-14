@@ -2,15 +2,13 @@
 
 import { KudosCard, Pagination } from "@repo/ui";
 import { useKudos } from "../hooks/useKudos";
-import { useState } from "react";
 
 export function KudosSent() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const { kudosSent } = useKudos();
+  const { kudosSent, changeSentPage } = useKudos();
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    // TODO: Implement pagination in the useKudos hook
+  const handlePageChange = async (page: number) => {
+    // Convert to 0-based index for the contract
+    await changeSentPage(page - 1);
   };
 
   if (!kudosSent || kudosSent.kudos.length === 0) {
@@ -54,7 +52,7 @@ export function KudosSent() {
       {kudosSent.totalPages > 1 && (
         <div className="flex justify-center">
           <Pagination
-            currentPage={Number(kudosSent.currentPage)}
+            currentPage={Number(kudosSent.currentPage) + 1}
             totalPages={Number(kudosSent.totalPages)}
             onPageChange={handlePageChange}
           />
