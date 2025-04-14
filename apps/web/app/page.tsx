@@ -115,12 +115,12 @@ export default function Home() {
           <Button
             variant="primary"
             size="md"
-            onClick={() =>
+            onClick={async () => {
               sendKudo(
                 "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
                 "Hello World"
-              )
-            }
+              );
+            }}
           >
             Send Test Kudo
           </Button>

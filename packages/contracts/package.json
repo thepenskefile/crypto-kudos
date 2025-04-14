@@ -5,14 +5,11 @@
   "scripts": {
     "compile": "hardhat compile",
     "deploy": "hardhat run scripts/deploy.ts --network localhost",
+    "hardhat:node": "npx hardhat node",
     "clean": "rm -rf .turbo node_modules artifacts cache"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
-    "@repo/typescript-config": "*",
-    "abitype": "^0.9.8",
-    "hardhat": "^2.19.4",
-    "prettier": "^3.2.5",
-    "typescript": "5.8.2"
+    "hardhat": "^2.23.0"
   }
 }
