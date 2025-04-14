@@ -18,20 +18,12 @@ export function Table({
   ...props
 }: TableProps) {
   return (
-    <div className="overflow-hidden rounded-xl shadow-lg bg-white/50 dark:bg-surface-dark/50 backdrop-blur-sm p-1">
-      <table
-        className={twMerge(
-          clsx(
-            "w-full overflow-hidden rounded-lg border-2 border-orange-200/50 dark:border-orange-900/30"
-          ),
-          className
-        )}
-        {...props}
-      >
+    <div className="overflow-hidden rounded-lg bg-orange-50/50 dark:bg-orange-950/10">
+      <table className={twMerge(clsx("w-full"), className)} {...props}>
         {children}
       </table>
       {paginationProps && (
-        <div className="mt-1 px-3 pb-0.5">
+        <div className="px-6 py-4 border-t border-orange-200/50 dark:border-orange-900/20">
           <Pagination {...paginationProps} />
         </div>
       )}
@@ -49,7 +41,7 @@ function Head({ className, children, ...props }: HeadProps) {
   return (
     <thead
       className={twMerge(
-        clsx("bg-orange-100/80 dark:bg-orange-900/20"),
+        clsx("bg-orange-100/70 dark:bg-orange-950/30"),
         className
       )}
       {...props}
@@ -70,7 +62,7 @@ function HeadCell({ className, children, ...props }: HeadCellProps) {
     <th
       className={twMerge(
         clsx(
-          "text-orange-900 dark:text-orange-100 px-6 py-4 align-middle text-sm font-bold uppercase tracking-wider"
+          "px-6 py-4 text-left text-sm font-semibold text-orange-950 dark:text-orange-100 uppercase tracking-wider"
         ),
         className
       )}
@@ -92,7 +84,7 @@ function Cell({ className, children, ...props }: CellProps) {
     <td
       className={twMerge(
         clsx(
-          "px-6 py-4 align-middle text-text-primary-light dark:text-text-primary-dark border-b border-orange-100 dark:border-orange-900/30"
+          "px-6 py-4 text-text-primary-light dark:text-text-primary-dark border-b border-orange-200/50 dark:border-orange-900/20"
         ),
         className
       )}
@@ -112,7 +104,12 @@ interface RowProps
 function Row({ className, children, ...props }: RowProps) {
   return (
     <tr
-      className={twMerge(clsx("transition-colors duration-200"), className)}
+      className={twMerge(
+        clsx(
+          "transition-colors duration-200 hover:bg-orange-100/50 dark:hover:bg-orange-950/20"
+        ),
+        className
+      )}
       {...props}
     >
       {children}
@@ -130,7 +127,7 @@ function Body({ className, children, ...props }: BodyProps) {
   return (
     <tbody
       className={twMerge(
-        clsx("bg-white/80 dark:bg-surface-dark/80"),
+        clsx("divide-y divide-orange-200/50 dark:divide-orange-900/20"),
         className
       )}
       {...props}
@@ -149,7 +146,12 @@ interface FootProps
 function Foot({ className, children, ...props }: FootProps) {
   return (
     <tfoot
-      className={twMerge(clsx("bg-orange-50 dark:bg-orange-900/20"), className)}
+      className={twMerge(
+        clsx(
+          "bg-orange-100/70 dark:bg-orange-950/30 border-t border-orange-200/50 dark:border-orange-900/20"
+        ),
+        className
+      )}
       {...props}
     >
       {children}
