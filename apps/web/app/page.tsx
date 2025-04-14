@@ -4,16 +4,10 @@ import { Button, Table } from "@repo/ui";
 import { useTheme } from "next-themes";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useKudos } from "./hooks/useKudos";
-import type { Kudos } from "@repo/shared/contracts/types/Kudos";
 
 export default function Home() {
   const { theme, setTheme } = useTheme();
   const { kudosReceived, kudosSent, sendKudo } = useKudos();
-
-  const receivedKudos = kudosReceived as
-    | Kudos.PaginatedKudosStructOutput
-    | undefined;
-  const sentKudos = kudosSent as Kudos.PaginatedKudosStructOutput | undefined;
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
@@ -34,13 +28,13 @@ export default function Home() {
       <div className="space-y-8">
         <div className="bg-card rounded-lg p-6">
           <h2 className="text-2xl font-semibold mb-4">Kudos Received</h2>
-          {receivedKudos && receivedKudos.kudos.length > 0 ? (
+          {kudosReceived && kudosReceived.kudos.length > 0 ? (
             <div>
               <Table
                 paginationProps={{
-                  currentPage: Number(receivedKudos.currentPage),
-                  totalPages: Number(receivedKudos.totalPages),
-                  totalItems: Number(receivedKudos.totalItems),
+                  currentPage: Number(kudosReceived.currentPage),
+                  totalPages: Number(kudosReceived.totalPages),
+                  totalItems: Number(kudosReceived.totalItems),
                   setCurrentPage: () => {},
                   isLoading: false,
                 }}
@@ -53,7 +47,7 @@ export default function Home() {
                   </Table.Row>
                 </Table.Head>
                 <Table.Body>
-                  {receivedKudos.kudos.map((kudo, index) => (
+                  {kudosReceived.kudos.map((kudo, index) => (
                     <Table.Row key={index}>
                       <Table.Cell>{kudo.from}</Table.Cell>
                       <Table.Cell>{kudo.message}</Table.Cell>
@@ -76,13 +70,13 @@ export default function Home() {
 
         <div className="bg-card rounded-lg p-6">
           <h2 className="text-2xl font-semibold mb-4">Kudos Sent</h2>
-          {sentKudos && sentKudos.kudos.length > 0 ? (
+          {kudosSent && kudosSent.kudos.length > 0 ? (
             <div>
               <Table
                 paginationProps={{
-                  currentPage: Number(sentKudos.currentPage),
-                  totalPages: Number(sentKudos.totalPages),
-                  totalItems: Number(sentKudos.totalItems),
+                  currentPage: Number(kudosSent.currentPage),
+                  totalPages: Number(kudosSent.totalPages),
+                  totalItems: Number(kudosSent.totalItems),
                   setCurrentPage: () => {},
                   isLoading: false,
                 }}
@@ -95,7 +89,7 @@ export default function Home() {
                   </Table.Row>
                 </Table.Head>
                 <Table.Body>
-                  {sentKudos.kudos.map((kudo, index) => (
+                  {kudosSent.kudos.map((kudo, index) => (
                     <Table.Row key={index}>
                       <Table.Cell>{kudo.to}</Table.Cell>
                       <Table.Cell>{kudo.message}</Table.Cell>
@@ -121,12 +115,12 @@ export default function Home() {
           <Button
             variant="primary"
             size="md"
-            onClick={() =>
+            onClick={async () => {
               sendKudo(
                 "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
                 "Hello World"
-              )
-            }
+              );
+            }}
           >
             Send Test Kudo
           </Button>

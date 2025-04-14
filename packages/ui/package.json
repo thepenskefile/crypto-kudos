@@ -8,7 +8,6 @@
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit",
     "build-css": "npx @tailwindcss/cli -i ./src/styles/input.css -o ./src/styles/output.css",
     "build-css:watch": "npx @tailwindcss/cli -i ./src/styles/input.css -o ./src/styles/output.css --watch"
