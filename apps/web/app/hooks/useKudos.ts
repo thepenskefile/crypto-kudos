@@ -2,14 +2,14 @@ import { useReadContract, useWriteContract } from "wagmi";
 import { kudosDeployment } from "@repo/shared";
 
 export function useKudos() {
-  const { data: kudosReceived } = useReadContract({
+  const { data: kudosReceived, refetch: refetchReceived } = useReadContract({
     address: kudosDeployment.address as `0x${string}`,
     abi: kudosDeployment.abi,
     functionName: "getKudosReceived",
     args: [{ page: 0n, pageSize: 10n }],
   });
 
-  const { data: kudosSent } = useReadContract({
+  const { data: kudosSent, refetch: refetchSent } = useReadContract({
     address: kudosDeployment.address as `0x${string}`,
     abi: kudosDeployment.abi,
     functionName: "getKudosSent",
@@ -21,12 +21,18 @@ export function useKudos() {
   return {
     kudosReceived: kudosReceived,
     kudosSent: kudosSent,
-    sendKudo: (to: `0x${string}`, message: string) =>
-      writeContract({
+    sendKudo: async (to: `0x${string}`, message: string) => {
+      const result = await writeContract({
         address: kudosDeployment.address as `0x${string}`,
         abi: kudosDeployment.abi,
         functionName: "sendKudo",
         args: [{ to, message }] as const,
-      }),
+      });
+
+      // Refetch both sent and received kudos after sending
+      await Promise.all([refetchSent(), refetchReceived()]);
+
+      return result;
+    },
   };
 }

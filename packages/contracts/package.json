@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "compile": "hardhat compile",
-    "deploy": "hardhat run scripts/deploy.ts",
+    "deploy": "hardhat run scripts/deploy.ts --network localhost",
     "clean": "rm -rf .turbo node_modules artifacts cache"
   },
   "devDependencies": {
