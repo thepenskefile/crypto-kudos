@@ -11,6 +11,14 @@
   --color-surface-light: rgb(255, 250, 240); /* Slightly lighter cream */
   --color-surface-dark: rgb(40, 35, 30); /* Slightly lighter warm brown */
 
+  /* Kudos Card Colors */
+  --color-kudos-blue: rgb(135, 180, 255);
+  --color-kudos-yellow: rgb(255, 205, 120);
+  --color-kudos-coral: rgb(255, 160, 140);
+  --color-kudos-mint: rgb(140, 230, 180);
+  --color-kudos-purple: rgb(180, 160, 255);
+  --color-kudos-cyan: rgb(140, 220, 230);
+
   /* Text Colors */
   --color-text-primary-light: rgb(40, 30, 20); /* Warm dark brown */
   --color-text-primary-dark: rgb(253, 245, 230); /* Cream */
