@@ -5,9 +5,10 @@ import { cn } from "../../utils/cn";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  hint?: string;
 }
 
-export function Input({ className, label, ...props }: InputProps) {
+export function Input({ className, label, hint, ...props }: InputProps) {
   const uniqueId = useId();
   const inputId = `form-input-${uniqueId}`;
 
@@ -16,26 +17,36 @@ export function Input({ className, label, ...props }: InputProps) {
       {label && (
         <label
           htmlFor={inputId}
-          className="text-sm text-text-secondary-light dark:text-text-secondary-dark"
+          className="text-sm font-medium text-gray-600 dark:text-gray-300"
         >
           {label}
         </label>
       )}
-      <input
-        id={inputId}
-        className={cn(
-          "w-full px-4 py-2 rounded-lg",
-          "bg-orange-50/50 dark:bg-orange-950/10",
-          "border border-orange-200 dark:border-orange-900/30",
-          "text-text-primary-light dark:text-text-primary-dark placeholder:text-orange-400/50 dark:placeholder:text-orange-500/30",
-          "focus:outline-none focus:ring-2 focus:ring-orange-200 dark:focus:ring-orange-900/30 focus:border-transparent",
-          "transition-colors duration-200",
-          "disabled:opacity-50 disabled:cursor-not-allowed",
-          "hover:border-orange-300 dark:hover:border-orange-800/30",
-          className
+      <div>
+        <input
+          id={inputId}
+          className={cn(
+            "w-full px-4 py-2.5 rounded-xl",
+            "bg-blue-50/50 dark:bg-gray-900/50",
+            "border-2 border-blue-500 dark:border-blue-400",
+            "text-gray-900 dark:text-gray-100",
+            "placeholder:text-gray-400 dark:placeholder:text-gray-500",
+            "focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900/30",
+            "transition-all duration-200",
+            "disabled:opacity-50 disabled:cursor-not-allowed",
+            className
+          )}
+          {...props}
+        />
+        {hint && (
+          <p
+            id={`${inputId}-hint`}
+            className="text-sm text-gray-400 dark:text-gray-400 pl-0.5"
+          >
+            {hint}
+          </p>
         )}
-        {...props}
-      />
+      </div>
     </div>
   );
 }
