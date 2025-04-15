@@ -2,6 +2,7 @@
 
 import { KudosCard, KudosCardProps, Pagination } from "@repo/ui";
 import { useKudos } from "../../hooks/useKudos";
+import { NoKudos } from "./NoKudos";
 
 const CARD_COLORS: KudosCardProps["color"][] = [
   "blue",
@@ -29,9 +30,7 @@ export function KudosReceived() {
 
   if (!kudosReceived || kudosReceived.kudos.length === 0) {
     return (
-      <div className="text-center p-8 text-text-secondary-light dark:text-text-secondary-dark">
-        No kudos received yet. Your first one is on the way! ✨
-      </div>
+      <NoKudos message="No kudos received yet. Your first one is on the way! ✨" />
     );
   }
 
