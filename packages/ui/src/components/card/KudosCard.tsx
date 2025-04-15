@@ -33,7 +33,7 @@ export function KudosCard({
   return (
     <div
       className={cn(
-        "rounded-xl p-4 shadow-lg transition-transform hover:scale-[1.02]",
+        "rounded-xl p-4 shadow-lg transition-transform hover:scale-[1.02] dark:text-text-primary-light",
         colorClasses[color],
         className
       )}

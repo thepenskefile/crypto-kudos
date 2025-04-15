@@ -16,6 +16,7 @@ import { useKudos } from "./hooks/useKudos";
 import { KudosReceived } from "./components/KudosReceived";
 import { KudosSent } from "./components/KudosSent";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
+import { NoWalletSection } from "./components/NoWalletSection";
 
 interface FormElements extends HTMLFormControlsCollection {
   toAddress: HTMLInputElement;
@@ -26,64 +27,73 @@ interface UsernameFormElement extends HTMLFormElement {
 }
 
 export default function Home() {
-  const { sendKudo } = useKudos();
+  const { sendKudos } = useKudos();
   const { isConnected } = useAccount();
 
-  const sendKudoModal = useModalState();
+  const sendKudosModal = useModalState();
 
-  function handleSendKudo(event: React.FormEvent<UsernameFormElement>) {
+  function handleSendKudos(event: React.FormEvent<UsernameFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    sendKudo(
+    sendKudos(
       form.elements.toAddress.value as `0x${string}`,
       form.elements.message.value
     );
-    sendKudoModal.close();
+    sendKudosModal.close();
   }
 
   return (
     <PageContent>
       {/* Hero Section */}
       <div className="relative">
-        <div className="pb-8">
+        <div className="pb-12">
           <div className="flex-1 flex flex-col items-center text-center">
-            <div className="self-end mb-4">
+            <div className="self-end mb-8">
               <ThemeSwitcher />
             </div>
-            <h1 className="text-6xl font-bold mb-6 text-blue-600 dark:text-blue-400 tracking-tight sm:text-7xl">
+            <h1 className="text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 tracking-tight sm:text-8xl font-jakarta">
               Crypto Kudos
             </h1>
-            <p className="text-xl text-text-secondary-light dark:text-text-secondary-dark mb-10 max-w-2xl leading-8">
-              Spread positivity and appreciation in the crypto space, one kudo
-              at a time ✨
+            <p className="text-xl text-text-secondary-light dark:text-text-secondary-dark mb-12 max-w-2xl leading-relaxed font-jakarta">
+              Spread positivity and appreciation in the crypto space, one kudos
+              at a time
             </p>
-            <div className="flex items-center gap-4 flex-wrap justify-center">
-              <ConnectButton />
-            </div>
+            {isConnected && (
+              <div className="flex items-center gap-4 flex-wrap justify-center">
+                <ConnectButton />
+              </div>
+            )}
           </div>
         </div>
 
         {isConnected ? (
           <div className="space-y-12">
             {/* Action Bar */}
-            <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-500/5 rounded-2xl px-8 py-5 border border-blue-100 dark:border-blue-500/20">
+            <div className="flex items-center justify-between bg-white dark:bg-gray-800 rounded-2xl px-6 py-4 border border-gray-100 dark:border-gray-700 shadow-xl">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">👋</span>
-                <span className="text-lg text-blue-600 dark:text-blue-400">
+                <div className="h-11 w-11 rounded-xl bg-blue-50 dark:bg-gray-900/50 flex items-center justify-center">
+                  <span className="text-2xl">👋</span>
+                </div>
+                <span className="text-lg font-medium text-gray-600 dark:text-gray-300">
                   Welcome back!
                 </span>
               </div>
-              <Button variant="primary" size="sm" onClick={sendKudoModal.open}>
-                <span className="flex items-center gap-2">
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={sendKudosModal.open}
+                className="min-w-[140px]"
+              >
+                <span className="flex items-center gap-2 justify-center">
                   <span>💌</span> Send Kudos
                 </span>
               </Button>
             </div>
 
             {/* Tabs */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-600">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-xl">
               <Tab.Container defaultValue="received">
-                <Tab.List className="flex gap-2 p-2 bg-gray-50/80 dark:bg-gray-900/50">
+                <Tab.List className="flex gap-2 p-2 bg-blue-100 dark:bg-gray-900/50">
                   <Tab.Trigger
                     value="received"
                     className="flex-1 text-base px-4 py-2 rounded-xl"
@@ -120,61 +130,73 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center border border-gray-100 dark:border-gray-700 shadow-sm">
-            <div className="flex flex-col items-center gap-6">
-              <div className="h-20 w-20 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                <span className="text-4xl">🎉</span>
-              </div>
-              <div>
-                <h2 className="text-3xl font-semibold mb-4 text-purple-600 dark:text-purple-400">
-                  Welcome to Crypto Kudos!
-                </h2>
-                <p className="text-xl text-text-secondary-light dark:text-text-secondary-dark mb-8 max-w-2xl">
-                  Connect your wallet to start spreading positivity and
-                  appreciation in the crypto space! ✨
-                </p>
-              </div>
-              <ConnectButton />
-            </div>
-          </div>
+          <NoWalletSection />
         )}
       </div>
 
-      <SendKudoModal modal={sendKudoModal} handleSendKudo={handleSendKudo} />
+      <SendKudosModal
+        modal={sendKudosModal}
+        handleSendKudos={handleSendKudos}
+      />
     </PageContent>
   );
 }
 
-function SendKudoModal({
+function SendKudosModal({
   modal,
-  handleSendKudo,
+  handleSendKudos,
 }: {
   modal: UseModalState;
-  handleSendKudo: (event: React.FormEvent<UsernameFormElement>) => void;
+  handleSendKudos: (event: React.FormEvent<UsernameFormElement>) => void;
 }) {
   return (
-    <Modal visible={modal.visible} onClose={modal.close}>
-      <Modal.Title>
-        <span className="flex items-center gap-2">
-          <span>💌</span> Send Kudos
+    <Modal
+      visible={modal.visible}
+      onClose={modal.close}
+      panelClassName="lg:min-w-[41.75rem] lg:h-[32rem]"
+    >
+      <Modal.Title className="flex items-center gap-3 pb-6">
+        <div className="h-12 w-12 rounded-2xl bg-blue-50 dark:bg-gray-900/50 flex items-center justify-center">
+          <span className="text-2xl">💌</span>
+        </div>
+        <span className="text-2xl font-medium text-blue-600 dark:text-blue-400">
+          Send Kudos
         </span>
       </Modal.Title>
       <Modal.Content>
-        <form onSubmit={handleSendKudo} className="space-y-4">
-          <Input label="To address" name="toAddress" placeholder="0x..." />
-          <Textarea
-            label="Message"
-            name="message"
-            placeholder="Write your appreciation message here..."
-          />
-          <div className="flex justify-end">
+        <form onSubmit={handleSendKudos} className="space-y-6">
+          <div className="space-y-2">
+            <Input
+              label="To address"
+              name="toAddress"
+              placeholder="0x..."
+              className="bg-blue-50/50 dark:bg-gray-900/50 border-0 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+            />
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              Enter the Ethereum address of the person you want to send kudos to
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Textarea
+              label="Message"
+              name="message"
+              placeholder="Write your appreciation message here..."
+              className="bg-blue-50/50 dark:bg-gray-900/50 border-0 min-h-[120px] text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+            />
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              Write a heartfelt message to show your appreciation
+            </div>
+          </div>
+          <div className="flex justify-end pt-4">
             <Button
               variant="primary"
-              size="lg"
+              size="sm"
               type="submit"
-              className="hover:scale-105 transition-transform"
+              className="min-w-[160px]"
             >
-              Send Kudos
+              <span className="flex items-center gap-2 justify-center">
+                <span>💝</span> Send Kudos
+              </span>
             </Button>
           </div>
         </form>

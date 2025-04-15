@@ -4,42 +4,36 @@
 
 @theme {
   /* Background Colors */
-  --color-bg-light: rgb(253, 245, 230); /* Warm cream */
-  --color-bg-dark: rgb(30, 25, 20); /* Deep warm brown */
+  --color-bg-light: rgb(255, 252, 245); /* Soft warm white */
+  --color-bg-dark: rgb(17, 24, 39); /* Tailwind gray-900 */
 
   /* Surface Colors (for cards, modals, etc.) */
-  --color-surface-light: rgb(255, 250, 240); /* Slightly lighter cream */
-  --color-surface-dark: rgb(40, 35, 30); /* Slightly lighter warm brown */
+  --color-surface-light: rgb(255, 255, 255); /* Pure white */
+  --color-surface-dark: rgb(31, 41, 55); /* Tailwind gray-800 */
 
-  /* Kudos Card Colors */
-  --color-kudos-blue: rgb(135, 180, 255);
-  --color-kudos-yellow: rgb(255, 205, 120);
-  --color-kudos-coral: rgb(255, 160, 140);
-  --color-kudos-mint: rgb(140, 230, 180);
-  --color-kudos-purple: rgb(180, 160, 255);
-  --color-kudos-cyan: rgb(140, 220, 230);
+  /* Kudos Card Colors - Soft, modern pastels */
+  --color-kudos-blue: rgb(147, 197, 253); /* Tailwind blue-300 */
+  --color-kudos-yellow: rgb(253, 230, 138); /* Tailwind amber-200 */
+  --color-kudos-coral: rgb(254, 178, 178); /* Tailwind red-200 */
+  --color-kudos-mint: rgb(167, 243, 208); /* Tailwind emerald-200 */
+  --color-kudos-purple: rgb(196, 181, 253); /* Tailwind purple-200 */
+  --color-kudos-cyan: rgb(165, 243, 252); /* Tailwind cyan-200 */
 
   /* Text Colors */
-  --color-text-primary-light: rgb(40, 30, 20); /* Warm dark brown */
-  --color-text-primary-dark: rgb(253, 245, 230); /* Cream */
-  --color-text-secondary-light: rgb(100, 80, 60); /* Warm medium brown */
-  --color-text-secondary-dark: rgb(200, 190, 180); /* Light warm gray */
+  --color-text-primary-light: rgb(31, 41, 55); /* Tailwind gray-800 */
+  --color-text-primary-dark: rgb(243, 244, 246); /* Tailwind gray-100 */
+  --color-text-secondary-light: rgb(107, 114, 128); /* Tailwind gray-500 */
+  --color-text-secondary-dark: rgb(156, 163, 175); /* Tailwind gray-400 */
 
-  /* Accent Colors (Orange Theme) */
-  --color-accent-primary: var(--color-orange-500); /* Warm orange */
-  --color-accent-primary-hover: var(
-    --color-orange-600
-  ); /* Slightly darker orange */
-  --color-accent-secondary: rgb(255, 240, 220); /* Light warm orange */
-  --color-accent-secondary-hover: rgb(
-    255,
-    250,
-    240
-  ); /* Very light warm orange */
+  /* Accent Colors (Blue Theme) */
+  --color-accent-primary: rgb(37, 99, 235); /* Tailwind blue-600 */
+  --color-accent-primary-hover: rgb(29, 78, 216); /* Tailwind blue-700 */
+  --color-accent-secondary: rgb(219, 234, 254); /* Tailwind blue-100 */
+  --color-accent-secondary-hover: rgb(191, 219, 254); /* Tailwind blue-200 */
 
   /* Border Colors */
-  --color-border-light: rgb(230, 220, 210); /* Light warm gray */
-  --color-border-dark: rgb(50, 45, 40); /* Dark warm gray */
+  --color-border-light: rgb(229, 231, 235); /* Tailwind gray-200 */
+  --color-border-dark: rgb(75, 85, 99); /* Tailwind gray-600 */
 }
 
 html,
