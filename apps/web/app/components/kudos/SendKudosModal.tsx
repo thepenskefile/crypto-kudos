@@ -26,7 +26,7 @@ export function SendKudosModal({
         <form onSubmit={handleSendKudos} className="space-y-6">
           <div className="space-y-2">
             <Input
-              label="To address"
+              label="Recipient address"
               name="toAddress"
               placeholder="0x..."
               hint="Enter the Ethereum address of the person you want to send kudos to"
