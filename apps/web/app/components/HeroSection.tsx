@@ -10,7 +10,7 @@ export function HeroSection() {
         <div className="self-end mb-8">
           <ThemeSwitcher />
         </div>
-        <h1 className="text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 tracking-tight sm:text-8xl font-jakarta">
+        <h1 className="text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 tracking-tight sm:text-8xl font-jakarta leading-[1.15] pb-1">
           Crypto Kudos
         </h1>
         <p className="text-xl text-text-secondary-light dark:text-text-secondary-dark mb-12 max-w-2xl leading-relaxed font-jakarta">
