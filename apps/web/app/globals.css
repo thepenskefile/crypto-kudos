@@ -2,3 +2,13 @@
 @import "@repo/ui/styles";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-jakarta: var(--font-jakarta);
+  }
+
+  .font-jakarta {
+    font-family: var(--font-jakarta);
+  }
+}

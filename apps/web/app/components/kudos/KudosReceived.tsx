@@ -1,7 +1,23 @@
 "use client";
 
-import { KudosCard, Pagination } from "@repo/ui";
-import { useKudos } from "../hooks/useKudos";
+import { KudosCard, KudosCardProps, Pagination } from "@repo/ui";
+import { useKudos } from "../../hooks/useKudos";
+
+const CARD_COLORS: KudosCardProps["color"][] = [
+  "blue",
+  "yellow",
+  "coral",
+  "mint",
+  "purple",
+  "cyan",
+] as const;
+
+const CARD_EMOJIS: KudosCardProps["emoji"][] = [
+  "🎉",
+  "🙌",
+  "💯",
+  undefined,
+] as const;
 
 export function KudosReceived() {
   const { kudosReceived, changeReceivedPage } = useKudos();
@@ -23,18 +39,8 @@ export function KudosReceived() {
     <div className="space-y-6 pt-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {kudosReceived.kudos.map((kudo, index) => {
-          // Rotate through different colors and emojis for visual variety
-          const colors = [
-            "blue",
-            "yellow",
-            "coral",
-            "mint",
-            "purple",
-            "cyan",
-          ] as const;
-          const emojis = ["🎉", "🙌", "💯", "none"] as const;
-          const color = colors[index % colors.length];
-          const emoji = emojis[index % emojis.length];
+          const color = CARD_COLORS[index % CARD_COLORS.length];
+          const emoji = CARD_EMOJIS[index % CARD_EMOJIS.length];
 
           return (
             <KudosCard

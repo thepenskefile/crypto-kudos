@@ -47,7 +47,7 @@ export function useKudos() {
     setSentPage(BigInt(page));
   }, []);
 
-  const sendKudo = useCallback(
+  const sendKudos = useCallback(
     (to: `0x${string}`, message: string) => {
       if (!isConnected) throw new Error("Wallet not connected");
 
@@ -64,7 +64,7 @@ export function useKudos() {
   return {
     kudosReceived: isConnected ? kudosReceived : undefined,
     kudosSent: isConnected ? kudosSent : undefined,
-    sendKudo,
+    sendKudos,
     changeReceivedPage,
     changeSentPage,
   };
