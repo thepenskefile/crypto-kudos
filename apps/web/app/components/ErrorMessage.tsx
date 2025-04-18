@@ -42,7 +42,7 @@ export function ErrorMessage({
 }) {
   return (
     <Alert palette="danger" variant="tint" title={title} className={className}>
-      {error ? getErrorMessage(error) : null}
+      {error ? <div className="space-y-3">{getErrorMessage(error)}</div> : null}
     </Alert>
   );
 }
