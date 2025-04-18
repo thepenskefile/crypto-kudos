@@ -28,7 +28,12 @@ const hardhatLocal = {
 const config = getDefaultConfig({
   appName: "Crypto Kudos",
   projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string,
-  chains: [hardhatLocal, mainnet, polygon, optimism, arbitrum, base, sepolia],
+  chains: [
+    hardhatLocal,
+    // mainnet,
+    // base,
+    sepolia,
+  ],
   ssr: true,
   appDescription: "Send kudos on the blockchain",
   appUrl: "http://localhost:3000",
