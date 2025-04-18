@@ -14,3 +14,4 @@ ignition/deployments/chain-31337
 
 # Keep deployment history
 !deployments/
+deployments/localhost.json
