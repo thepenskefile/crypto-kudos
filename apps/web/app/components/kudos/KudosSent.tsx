@@ -3,7 +3,7 @@
 import { KudosCard, KudosCardProps, Pagination, Spinner } from "@repo/ui";
 import { useKudosSent } from "../../hooks/useKudos";
 import { NoKudos } from "./NoKudos";
-import { ErrorMessage } from "../ErrorMessage";
+import { ErrorMessage } from "../common/ErrorMessage";
 
 const CARD_COLORS: KudosCardProps["color"][] = [
   "blue",

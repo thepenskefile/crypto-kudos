@@ -32,7 +32,7 @@ export function Textarea({ className, label, hint, ...props }: TextareaProps) {
             "text-gray-900 dark:text-gray-100",
             "placeholder:text-gray-400 dark:placeholder:text-gray-500",
             "focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900/30",
-            "transition-all duration-200",
+            "transition-[border-color,box-shadow] duration-200",
             "disabled:opacity-50 disabled:cursor-not-allowed",
             className
           )}
