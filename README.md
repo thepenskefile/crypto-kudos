@@ -1,84 +1,128 @@
-# Turborepo starter
+# Crypto Kudos
 
-This Turborepo starter is maintained by the Turborepo core team.
+Crypto Kudos is a decentralised application that allows users to send and receive digital kudos (compliments or acknowledgments) on the blockchain. Built with modern web3 technologies, it provides a seamless way to recognize and appreciate people for their actions, achievements, or simply being awesome in a verifiable and permanent manner.
 
-## Using this example
+## Project Structure
 
-Run the following command:
+This monorepo contains the following packages:
 
-```sh
-npx create-turbo@latest
+- `packages/contracts`: Smart contracts for the Kudos system
+- `packages/shared`: Shared types and contract artifacts
+- `packages/web`: Next.js frontend application
+- `packages/ui`: Shared React components
+- `packages/eslint-config`: ESLint configurations
+- `packages/typescript-config`: TypeScript configurations
+
+## Prerequisites
+
+- Node.js (v16 or later)
+- npm
+- MetaMask or another Web3 wallet
+
+## Local Development Setup
+
+### 1. Install Dependencies
+
+```bash
+# Install root dependencies
+npm install
 ```
 
-## What's inside?
+### 2. Smart Contract Development
 
-This Turborepo includes the following packages/apps:
+1. Start a local Hardhat node:
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```bash
+cd packages/contracts
+npm run hardhat:node
 ```
 
-### Develop
+2. In a separate terminal, deploy the contracts:
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
+```bash
+npm run deploy
 ```
 
-### Remote Caching
+The local node will provide test accounts and private keys for development.
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+3. In a separate terminal, build the contract types in the shared package:
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```bash
+cd packages/shared
+npm run build
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### 3. Frontend Development
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+1. Start the development server:
 
+```bash
+cd packages/web
+npm run dev
 ```
-npx turbo link
-```
 
-## Useful Links
+2. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-Learn more about the power of Turborepo:
+3. Connect your MetaMask wallet to the local network:
+   - Network Name: Hardhat
+   - RPC URL: <http://127.0.0.1:8545>
+   - Chain ID: 31337
+   - Currency Symbol: ETH
 
-- [Tasks](https://turbo.build/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/docs/reference/command-line-reference)
+## Available Scripts
+
+### Root Level
+
+- `npm run install:all` - Install dependencies for all packages
+- `npm run build` - Build all packages
+- `npm run dev` - Start development servers
+- `npm run test` - Run tests across all packages
+
+### Contracts Package
+
+- `npm run compile` - Compile smart contracts
+- `npm run deploy` - Deploy contracts to local network
+- `npm run hardhat:node` - Start local Hardhat node
+- `npm run test` - Run contract tests
+
+### Shared Package
+
+- `npm run build` - Build smart contract types for use in the frontend
+
+### Web Package
+
+- `npm run dev` - Start development server
+- `npm run build` - Build production bundle
+- `npm run start` - Start production server
+
+### UI Package
+
+- `npm run build-css` - Build the Tailwind CSS stylesheet from the input CSS file
+- `npm run build-css:watch` - Build and watch for changes to the Tailwind CSS stylesheet
+
+## Project Architecture
+
+### Smart Contracts
+
+The Kudos smart contract (`packages/contracts/contracts/Kudos.sol`) handles:
+
+- Creating and managing kudos tokens
+- Tracking ownership and transfers
+- Managing metadata and attributes
+
+### Frontend
+
+The web application (`packages/web`) provides:
+
+- User interface for sending and receiving kudos
+- Wallet integration
+- Transaction management
+- Token display and interaction
+
+### Shared Package
+
+The shared package (`packages/shared`) contains:
+
+- Contract ABIs and addresses
+- Shared types and utilities
+- Common interfaces
