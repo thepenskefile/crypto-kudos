@@ -10,6 +10,9 @@ The application is currently deployed to the Sepolia testnet and can be accessed
 2. Ensure you have some Sepolia ETH for gas fees
 3. Start sending and receiving kudos!
 
+![Example 2](./demo-images/crypto-kudos-not-connected.png)
+![Example 1](./demo-images/crypto-kudos-connected.png)
+
 ## Project Structure
 
 This monorepo contains the following packages:
