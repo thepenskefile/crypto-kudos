@@ -53,13 +53,10 @@ export function SendKudosModal({ modal }: { modal: UseModalState }) {
         </form>
       </Modal.Content>
       <Modal.Footer>
-        <Button
-          variant="primary"
-          size="sm"
-          type="submit"
-          className="min-w-[160px]"
-          isLoading={isPending}
-        >
+        <Button variant="outline" size="sm" onClick={modal.close}>
+          Cancel
+        </Button>
+        <Button variant="primary" size="sm" type="submit" isLoading={isPending}>
           <span className="flex items-center gap-2 justify-center">
             <span>💝</span> Send Kudos
           </span>

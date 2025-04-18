@@ -7,4 +7,5 @@ export * from "./components/card";
 export * from "./components/modal";
 export * from "./components/pagination";
 export * from "./components/alert";
+export * from "./components/spinner";
 export { cn } from "./utils/cn";

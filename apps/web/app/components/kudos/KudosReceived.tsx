@@ -1,8 +1,9 @@
 "use client";
 
-import { KudosCard, KudosCardProps, Pagination } from "@repo/ui";
+import { KudosCard, KudosCardProps, Pagination, Spinner } from "@repo/ui";
 import { useKudosReceived } from "../../hooks/useKudos";
 import { NoKudos } from "./NoKudos";
+import { ErrorMessage } from "../ErrorMessage";
 
 const CARD_COLORS: KudosCardProps["color"][] = [
   "blue",
@@ -21,12 +22,21 @@ const CARD_EMOJIS: KudosCardProps["emoji"][] = [
 ] as const;
 
 export function KudosReceived() {
-  const { kudosReceived, changePage } = useKudosReceived();
+  const { kudosReceived, changePage, isPending, isError, error } =
+    useKudosReceived();
 
   const handlePageChange = async (page: number) => {
     // Convert to 0-based index for the contract
     await changePage(page - 1);
   };
+
+  if (isPending) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <ErrorMessage error={error} title="An error occurred" />;
+  }
 
   if (!kudosReceived || kudosReceived.kudos.length === 0) {
     return (
