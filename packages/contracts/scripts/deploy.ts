@@ -7,6 +7,7 @@ const CHAIN_IDS = {
   mainnet: 1,
   sepolia: 11155111,
   base: 8453,
+  localhost: 31337,
 } as const;
 
 // Contract ABI type
@@ -133,6 +134,13 @@ async function main() {
       abi: [],
       network: "sepolia",
       chainId: 11155111,
+    },
+    // Local
+    31337: {
+      address: "0x0000000000000000000000000000000000000000",
+      abi: [],
+      network: "localhost",
+      chainId: 31337,
     },
   };
 
