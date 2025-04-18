@@ -2,10 +2,10 @@
 
 import { useModalState } from "@repo/ui";
 import { useAccount } from "wagmi";
-import { NoWalletSection } from "../components/NoWalletSection";
+import { NoWalletSection } from "../components/sections/NoWalletSection";
 import { SendKudosModal } from "../components/kudos/SendKudosModal";
 import { KudosTabs } from "../components/kudos/KudosTabs";
-import { ActionBar } from "../components/ActionBar";
+import { ActionBar } from "../components/common/ActionBar";
 interface FormElements extends HTMLFormControlsCollection {
   toAddress: HTMLInputElement;
   message: HTMLTextAreaElement;

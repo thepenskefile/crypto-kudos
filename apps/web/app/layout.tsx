@@ -5,7 +5,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 
 import "./globals.css";
 import { Web3Provider } from "./providers/Web3Provider";
-import { Footer } from "./components/Footer";
+import { Footer } from "./components/layout/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

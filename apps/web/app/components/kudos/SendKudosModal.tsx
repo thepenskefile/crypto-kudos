@@ -1,7 +1,7 @@
 import { Button, Input, Modal, Textarea, UseModalState } from "@repo/ui";
 import { UsernameFormElement } from "../../(home)/page";
 import { useSendKudo } from "../../hooks/useKudos";
-import { ErrorMessage } from "../ErrorMessage";
+import { ErrorMessage } from "../common/ErrorMessage";
 
 export function SendKudosModal({ modal }: { modal: UseModalState }) {
   const { sendKudo, isPending, isError, error } = useSendKudo({
