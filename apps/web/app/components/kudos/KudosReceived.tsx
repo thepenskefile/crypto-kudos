@@ -4,6 +4,7 @@ import { KudosCard, KudosCardProps, Pagination, Spinner } from "@repo/ui";
 import { useKudosReceived } from "../../hooks/useKudos";
 import { NoKudos } from "./NoKudos";
 import { ErrorMessage } from "../common/ErrorMessage";
+import { useGetExplorerUrl } from "../../hooks/useGetExplorerUrl";
 
 const CARD_COLORS: KudosCardProps["color"][] = [
   "blue",
@@ -24,6 +25,8 @@ const CARD_EMOJIS: KudosCardProps["emoji"][] = [
 export function KudosReceived() {
   const { kudosReceived, changePage, isPending, isError, error } =
     useKudosReceived();
+
+  const { getExplorerUrl } = useGetExplorerUrl();
 
   const handlePageChange = async (page: number) => {
     // Convert to 0-based index for the contract
@@ -59,6 +62,7 @@ export function KudosReceived() {
               message={kudo.message}
               color={color}
               emoji={emoji}
+              explorerUrl={getExplorerUrl(kudo.transactionHash)}
             />
           );
         })}

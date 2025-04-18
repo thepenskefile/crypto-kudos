@@ -7,6 +7,7 @@ contract Kudos {
         address to;
         string message;
         uint256 timestamp;
+        bytes32 transactionHash;
     }
 
     struct PaginatedKudos {
@@ -34,17 +35,20 @@ contract Kudos {
     // Total count of kudos for pagination
     uint256 private totalKudos;
 
-    event KudoSent(address indexed from, address indexed to, string message);
+    event KudoSent(address indexed from, address indexed to, string message, bytes32 transactionHash);
 
     function sendKudo(SendKudoParams calldata params) external {
         require(params.to != address(0), "Cannot send to zero address");
         require(params.to != msg.sender, "Cannot send kudos to yourself");
         
+        bytes32 txHash = blockhash(block.number - 1);
+        
         Kudo memory newKudo = Kudo({
             from: msg.sender,
             to: params.to,
             message: params.message,
-            timestamp: block.timestamp
+            timestamp: block.timestamp,
+            transactionHash: txHash
         });
 
         // Store in both mappings
@@ -52,7 +56,7 @@ contract Kudos {
         kudosReceived[params.to].push(newKudo);
         totalKudos++;
 
-        emit KudoSent(msg.sender, params.to, params.message);
+        emit KudoSent(msg.sender, params.to, params.message, txHash);
     }
 
     function getKudosSent(GetKudosParams calldata params) external view returns (PaginatedKudos memory) {

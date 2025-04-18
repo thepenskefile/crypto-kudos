@@ -76,7 +76,7 @@ export function NoWalletSection() {
       </div>
 
       {/* Mobile demo cards - show only on small screens */}
-      <div className="block md:hidden mt-20 mb-10">
+      <div className="md:hidden mt-20 mb-10">
         <p className="text-center text-lg font-medium text-gray-700 dark:text-gray-300 mb-8 font-jakarta">
           Join the movement.{" "}
           <span className="text-blue-600 dark:text-blue-400">
