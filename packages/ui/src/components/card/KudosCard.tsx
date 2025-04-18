@@ -7,6 +7,7 @@ export interface KudosCardProps {
   emoji?: "🎉" | "🙌" | "💯";
   color?: "blue" | "yellow" | "coral" | "mint" | "purple" | "cyan";
   className?: string;
+  explorerUrl?: string;
 }
 
 const colorClasses = {
@@ -43,6 +44,7 @@ export function KudosCard({
   emoji,
   color = "blue",
   className,
+  explorerUrl,
 }: KudosCardProps) {
   return (
     <div
@@ -76,6 +78,16 @@ export function KudosCard({
         </div>
       </div>
       <div className="font-medium text-lg">{message}</div>
+      {explorerUrl && (
+        <a
+          href={explorerUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs opacity-70 hover:opacity-100 transition-opacity mt-2 block"
+        >
+          View on Explorer ↗
+        </a>
+      )}
     </div>
   );
 }

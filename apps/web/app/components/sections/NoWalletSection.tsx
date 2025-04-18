@@ -3,16 +3,22 @@ import { Card, cn, KudosCard, PageContent } from "@repo/ui";
 
 const DEMO_KUDOS = [
   {
+    fromAddress: "0x6243...8326",
+    toAddress: "0x9932...4822",
     message: "You went out of your way to help — really appreciate it. ✨",
     color: "blue" as const,
     emoji: "🎉" as const,
   },
   {
+    fromAddress: "0x9923...3438",
+    toAddress: "0x3467...wggt",
     message: "Your attention to detail never goes unnoticed. 🤝",
     color: "yellow" as const,
     emoji: "🙌" as const,
   },
   {
+    fromAddress: "0x2509...4681",
+    toAddress: "03534...fdse",
     message: "Just wanted to say, you're doing an awesome job.",
     color: "coral" as const,
     emoji: "💯" as const,
@@ -46,8 +52,8 @@ export function NoWalletSection() {
         {/* Top left card */}
         <DemoCardWrapper className="-left-5 -top-10 -rotate-6">
           <KudosCard
-            fromAddress="0x6243...8326"
-            toAddress="0xabcd...efgh"
+            fromAddress={DEMO_KUDOS[0].fromAddress}
+            toAddress={DEMO_KUDOS[0].toAddress}
             message={DEMO_KUDOS[0].message}
             color={DEMO_KUDOS[0].color}
             emoji={DEMO_KUDOS[0].emoji}
@@ -56,8 +62,8 @@ export function NoWalletSection() {
         {/* Top right card */}
         <DemoCardWrapper className="-right-5 -top-12 rotate-15">
           <KudosCard
-            fromAddress="0x9943...3438"
-            toAddress="0xabcd...efgh"
+            fromAddress={DEMO_KUDOS[1].fromAddress}
+            toAddress={DEMO_KUDOS[1].toAddress}
             message={DEMO_KUDOS[1].message}
             color={DEMO_KUDOS[1].color}
             emoji={DEMO_KUDOS[1].emoji}
@@ -66,8 +72,8 @@ export function NoWalletSection() {
         {/* Bottom card */}
         <DemoCardWrapper className="-left-5 -bottom-15 rotate-5">
           <KudosCard
-            fromAddress="0x2509...4681"
-            toAddress="0xabcd...efgh"
+            fromAddress={DEMO_KUDOS[2].fromAddress}
+            toAddress={DEMO_KUDOS[2].toAddress}
             message={DEMO_KUDOS[2].message}
             color={DEMO_KUDOS[2].color}
             emoji={DEMO_KUDOS[2].emoji}
@@ -76,7 +82,7 @@ export function NoWalletSection() {
       </div>
 
       {/* Mobile demo cards - show only on small screens */}
-      <div className="block md:hidden mt-20 mb-10">
+      <div className="md:hidden mt-20 mb-10">
         <p className="text-center text-lg font-medium text-gray-700 dark:text-gray-300 mb-8 font-jakarta">
           Join the movement.{" "}
           <span className="text-blue-600 dark:text-blue-400">
@@ -95,8 +101,8 @@ export function NoWalletSection() {
               )}
             >
               <KudosCard
-                fromAddress="0x6243...8326"
-                toAddress="0xabcd...efgh"
+                fromAddress={kudos.fromAddress}
+                toAddress={kudos.toAddress}
                 message={kudos.message}
                 color={kudos.color}
                 emoji={kudos.emoji}
