@@ -3,8 +3,9 @@ import {
   useWriteContract,
   useAccount,
   UseWriteContractParameters,
+  useChainId,
 } from "wagmi";
-import { kudosDeployment } from "@repo/shared";
+import { deployments } from "@repo/shared";
 import { useState, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -17,28 +18,34 @@ type KudosPaginationArgs = {
 
 function useKudosReceivedQuery(args: KudosPaginationArgs, enabled: boolean) {
   const { address } = useAccount();
+  const chainId = useChainId();
+  const deployment = deployments[chainId as keyof typeof deployments];
+
   return useReadContract({
-    address: kudosDeployment.address as `0x${string}`,
-    abi: kudosDeployment.abi,
+    address: deployment?.address as `0x${string}`,
+    abi: deployment?.abi,
     functionName: "getKudosReceived",
     args: [args],
     account: address,
     query: {
-      enabled: enabled && !!address,
+      enabled: enabled && !!address && !!deployment,
     },
   });
 }
 
 function useKudosSentQuery(args: KudosPaginationArgs, enabled: boolean) {
   const { address } = useAccount();
+  const chainId = useChainId();
+  const deployment = deployments[chainId as keyof typeof deployments];
+
   return useReadContract({
-    address: kudosDeployment.address as `0x${string}`,
-    abi: kudosDeployment.abi,
+    address: deployment?.address as `0x${string}`,
+    abi: deployment?.abi,
     functionName: "getKudosSent",
     args: [args],
     account: address,
     query: {
-      enabled: enabled && !!address,
+      enabled: enabled && !!address && !!deployment,
     },
   });
 }
@@ -46,10 +53,12 @@ function useKudosSentQuery(args: KudosPaginationArgs, enabled: boolean) {
 export function useKudosReceived() {
   const [page, setPage] = useState(0n);
   const { isConnected } = useAccount();
+  const chainId = useChainId();
+  const deployment = deployments[chainId as keyof typeof deployments];
 
   const { data: kudosReceived, ...restQuery } = useKudosReceivedQuery(
     { page, pageSize: DEFAULT_PAGE_SIZE },
-    isConnected
+    isConnected && !!deployment
   );
 
   const changePage = useCallback(async (newPage: number) => {
@@ -67,10 +76,12 @@ export function useKudosReceived() {
 export function useKudosSent() {
   const [page, setPage] = useState(0n);
   const { isConnected } = useAccount();
+  const chainId = useChainId();
+  const deployment = deployments[chainId as keyof typeof deployments];
 
   const { data: kudosSent, ...restQuery } = useKudosSentQuery(
     { page, pageSize: DEFAULT_PAGE_SIZE },
-    isConnected
+    isConnected && !!deployment
   );
 
   const changePage = useCallback(async (newPage: number) => {
@@ -92,6 +103,8 @@ type UseSendKudoOptions = Omit<
 
 export function useSendKudo(options?: UseSendKudoOptions) {
   const { isConnected } = useAccount();
+  const chainId = useChainId();
+  const deployment = deployments[chainId as keyof typeof deployments];
   const queryClient = useQueryClient();
 
   // Disabled query to get the query key for invalidation below.
@@ -129,15 +142,16 @@ export function useSendKudo(options?: UseSendKudoOptions) {
   const sendKudo = useCallback(
     (to: `0x${string}`, message: string) => {
       if (!isConnected) throw new Error("Wallet not connected");
+      if (!deployment) throw new Error("Network not supported");
 
       return writeContract({
-        address: kudosDeployment.address as `0x${string}`,
-        abi: kudosDeployment.abi,
+        address: deployment.address as `0x${string}`,
+        abi: deployment.abi,
         functionName: "sendKudo",
         args: [{ to, message }] as const,
       });
     },
-    [isConnected, writeContract]
+    [isConnected, writeContract, deployment]
   );
 
   return {
