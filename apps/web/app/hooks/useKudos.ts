@@ -16,25 +16,29 @@ type KudosPaginationArgs = {
 };
 
 function useKudosReceivedQuery(args: KudosPaginationArgs, enabled: boolean) {
+  const { address } = useAccount();
   return useReadContract({
     address: kudosDeployment.address as `0x${string}`,
     abi: kudosDeployment.abi,
     functionName: "getKudosReceived",
     args: [args],
+    account: address,
     query: {
-      enabled,
+      enabled: enabled && !!address,
     },
   });
 }
 
 function useKudosSentQuery(args: KudosPaginationArgs, enabled: boolean) {
+  const { address } = useAccount();
   return useReadContract({
     address: kudosDeployment.address as `0x${string}`,
     abi: kudosDeployment.abi,
     functionName: "getKudosSent",
     args: [args],
+    account: address,
     query: {
-      enabled,
+      enabled: enabled && !!address,
     },
   });
 }
