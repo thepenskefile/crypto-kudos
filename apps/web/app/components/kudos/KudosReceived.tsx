@@ -1,10 +1,13 @@
 "use client";
 
-import { KudosCard, KudosCardProps, Pagination, Spinner } from "@repo/ui";
+import { Pagination, Spinner, useModalState } from "@repo/ui";
 import { useKudosReceived } from "../../hooks/useKudos";
 import { NoKudos } from "./NoKudos";
 import { ErrorMessage } from "../common/ErrorMessage";
 import { useGetExplorerUrl } from "../../hooks/useGetExplorerUrl";
+import { useState } from "react";
+import { KudosDetailsModal } from "./KudosDetailsModal";
+import { KudosCard, KudosCardProps } from "./KudosCard";
 
 const CARD_COLORS: KudosCardProps["color"][] = [
   "blue",
@@ -28,8 +31,18 @@ export function KudosReceived() {
 
   const { getExplorerUrl } = useGetExplorerUrl();
 
+  const [selectedKudos, setSelectedKudos] = useState<
+    | (NonNullable<typeof kudosReceived>["kudos"][number] & {
+        color: KudosCardProps["color"];
+        emoji: KudosCardProps["emoji"];
+        explorerUrl: string;
+      })
+    | null
+  >(null);
+
+  const kudosDetailsModal = useModalState();
+
   const handlePageChange = async (page: number) => {
-    // Convert to 0-based index for the contract
     await changePage(page - 1);
   };
 
@@ -63,6 +76,15 @@ export function KudosReceived() {
               color={color}
               emoji={emoji}
               explorerUrl={getExplorerUrl(kudo.transactionHash)}
+              onClick={() => {
+                setSelectedKudos({
+                  ...kudo,
+                  color,
+                  emoji,
+                  explorerUrl: getExplorerUrl(kudo.transactionHash),
+                });
+                kudosDetailsModal.open();
+              }}
             />
           );
         })}
@@ -76,6 +98,10 @@ export function KudosReceived() {
             onPageChange={handlePageChange}
           />
         </div>
+      )}
+
+      {selectedKudos && (
+        <KudosDetailsModal modal={kudosDetailsModal} kudos={selectedKudos} />
       )}
     </div>
   );
