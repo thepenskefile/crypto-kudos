@@ -1,19 +1,28 @@
 import { Button, Input, Modal, Textarea, UseModalState } from "@repo/ui";
 import { UsernameFormElement } from "../../(home)/page";
+import { useSendKudo } from "../../hooks/useKudos";
+import { ErrorMessage } from "../ErrorMessage";
 
-export function SendKudosModal({
-  modal,
-  handleSendKudos,
-}: {
-  modal: UseModalState;
-  handleSendKudos: (event: React.FormEvent<UsernameFormElement>) => void;
-}) {
+export function SendKudosModal({ modal }: { modal: UseModalState }) {
+  const { sendKudo, isPending, isError, error } = useSendKudo({
+    mutation: {
+      onSuccess: () => {
+        modal.close();
+      },
+    },
+  });
+
+  function handleSendKudos(event: React.FormEvent<UsernameFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    sendKudo(
+      form.elements.toAddress.value as `0x${string}`,
+      form.elements.message.value
+    );
+  }
+
   return (
-    <Modal
-      visible={modal.visible}
-      onClose={modal.close}
-      panelClassName="lg:min-w-[41.75rem] lg:h-[32rem]"
-    >
+    <Modal visible={modal.visible} onClose={modal.close}>
       <Modal.Title className="flex items-center gap-3 pb-6">
         <div className="h-12 w-12 rounded-2xl bg-blue-50 dark:bg-gray-900/50 flex items-center justify-center">
           <span className="text-2xl">💌</span>
@@ -40,20 +49,19 @@ export function SendKudosModal({
               hint="Write a heartfelt message to show your appreciation"
             />
           </div>
-          <div className="flex justify-end pt-4">
-            <Button
-              variant="primary"
-              size="sm"
-              type="submit"
-              className="min-w-[160px]"
-            >
-              <span className="flex items-center gap-2 justify-center">
-                <span>💝</span> Send Kudos
-              </span>
-            </Button>
-          </div>
+          {isError && <ErrorMessage error={error} title="An error occurred" />}
         </form>
       </Modal.Content>
+      <Modal.Footer>
+        <Button variant="outline" size="sm" onClick={modal.close}>
+          Cancel
+        </Button>
+        <Button variant="primary" size="sm" type="submit" isLoading={isPending}>
+          <span className="flex items-center gap-2 justify-center">
+            <span>💝</span> Send Kudos
+          </span>
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 }

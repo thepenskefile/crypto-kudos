@@ -1,53 +1,128 @@
-import { useReadContract, useWriteContract, useAccount } from "wagmi";
+import {
+  useReadContract,
+  useWriteContract,
+  useAccount,
+  UseWriteContractParameters,
+} from "wagmi";
 import { kudosDeployment } from "@repo/shared";
 import { useState, useCallback } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
-const PAGE_SIZE = 6n; // Show 6 kudos per page to fit the 2x3 grid nicely
+const DEFAULT_PAGE_SIZE = 6n; // Show 6 kudos per page to fit the 2x3 grid nicely
 
-export function useKudos() {
-  const { isConnected } = useAccount();
-  const [receivedPage, setReceivedPage] = useState(0n);
-  const [sentPage, setSentPage] = useState(0n);
+type KudosPaginationArgs = {
+  page: bigint;
+  pageSize: bigint;
+};
 
-  const { data: kudosReceived, refetch: refetchKudosReceived } =
-    useReadContract({
-      address: kudosDeployment.address as `0x${string}`,
-      abi: kudosDeployment.abi,
-      functionName: "getKudosReceived",
-      args: [{ page: receivedPage, pageSize: PAGE_SIZE }],
-      query: {
-        enabled: isConnected,
-      },
-    });
+function useKudosReceivedQuery(args: KudosPaginationArgs, enabled: boolean) {
+  return useReadContract({
+    address: kudosDeployment.address as `0x${string}`,
+    abi: kudosDeployment.abi,
+    functionName: "getKudosReceived",
+    args: [args],
+    query: {
+      enabled,
+    },
+  });
+}
 
-  const { data: kudosSent, refetch: refetchKudosSent } = useReadContract({
+function useKudosSentQuery(args: KudosPaginationArgs, enabled: boolean) {
+  return useReadContract({
     address: kudosDeployment.address as `0x${string}`,
     abi: kudosDeployment.abi,
     functionName: "getKudosSent",
-    args: [{ page: sentPage, pageSize: PAGE_SIZE }],
+    args: [args],
     query: {
-      enabled: isConnected,
+      enabled,
     },
   });
+}
 
-  const { writeContract } = useWriteContract({
+export function useKudosReceived() {
+  const [page, setPage] = useState(0n);
+  const { isConnected } = useAccount();
+
+  const { data: kudosReceived, ...restQuery } = useKudosReceivedQuery(
+    { page, pageSize: DEFAULT_PAGE_SIZE },
+    isConnected
+  );
+
+  const changePage = useCallback(async (newPage: number) => {
+    setPage(BigInt(newPage));
+  }, []);
+
+  return {
+    kudosReceived,
+    ...restQuery,
+    page,
+    changePage,
+  };
+}
+
+export function useKudosSent() {
+  const [page, setPage] = useState(0n);
+  const { isConnected } = useAccount();
+
+  const { data: kudosSent, ...restQuery } = useKudosSentQuery(
+    { page, pageSize: DEFAULT_PAGE_SIZE },
+    isConnected
+  );
+
+  const changePage = useCallback(async (newPage: number) => {
+    setPage(BigInt(newPage));
+  }, []);
+
+  return {
+    kudosSent,
+    ...restQuery,
+    page,
+    changePage,
+  };
+}
+
+type UseSendKudoOptions = Omit<
+  UseWriteContractParameters,
+  "address" | "abi" | "functionName" | "args"
+>;
+
+export function useSendKudo(options?: UseSendKudoOptions) {
+  const { isConnected } = useAccount();
+  const queryClient = useQueryClient();
+
+  // Disabled query to get the query key for invalidation below.
+  const { queryKey: kudosReceivedQueryKey } = useKudosReceivedQuery(
+    { page: 0n, pageSize: DEFAULT_PAGE_SIZE },
+    false
+  );
+
+  // Disabled query to get the query key for invalidation below.
+  const { queryKey: kudosSentQueryKey } = useKudosSentQuery(
+    { page: 0n, pageSize: DEFAULT_PAGE_SIZE },
+    false
+  );
+
+  const { writeContract, ...restUseWriteContract } = useWriteContract({
+    ...options,
     mutation: {
-      onSuccess: () => {
-        refetchKudosSent();
-        refetchKudosReceived();
+      onSuccess: (...args) => {
+        if (options?.mutation?.onSuccess) {
+          options.mutation.onSuccess(...args);
+        }
+        queryClient.invalidateQueries({
+          refetchType: "all",
+          queryKey: kudosSentQueryKey,
+        });
+
+        queryClient.invalidateQueries({
+          refetchType: "all",
+          queryKey: kudosReceivedQueryKey,
+        });
       },
     },
   });
 
-  const changeReceivedPage = useCallback(async (page: number) => {
-    setReceivedPage(BigInt(page));
-  }, []);
-
-  const changeSentPage = useCallback(async (page: number) => {
-    setSentPage(BigInt(page));
-  }, []);
-
-  const sendKudos = useCallback(
+  const sendKudo = useCallback(
     (to: `0x${string}`, message: string) => {
       if (!isConnected) throw new Error("Wallet not connected");
 
@@ -62,10 +137,7 @@ export function useKudos() {
   );
 
   return {
-    kudosReceived: isConnected ? kudosReceived : undefined,
-    kudosSent: isConnected ? kudosSent : undefined,
-    sendKudos,
-    changeReceivedPage,
-    changeSentPage,
+    sendKudo,
+    ...restUseWriteContract,
   };
 }
