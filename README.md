@@ -1,6 +1,6 @@
 # Crypto Kudos
 
-Crypto Kudos is a decentralized application that allows users to send and receive digital kudos (compliments or acknowledgments) on the blockchain. Built with modern web3 technologies, it provides a seamless way to recognise and appreciate contributions in a verifiable and permanent manner.
+Crypto Kudos is a decentralised application that allows users to send and receive digital kudos (compliments or acknowledgments) on the blockchain. Built with modern web3 technologies, it provides a seamless way to recognize and appreciate people for their actions, achievements, or simply being awesome in a verifiable and permanent manner.
 
 ## Project Structure
 
