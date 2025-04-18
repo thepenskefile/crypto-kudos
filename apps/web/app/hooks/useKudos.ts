@@ -5,9 +5,9 @@ import {
   UseWriteContractParameters,
   useChainId,
 } from "wagmi";
-import { deployments } from "@repo/shared";
 import { useState, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { getDeploymentByChainId } from "@repo/shared";
 
 const DEFAULT_PAGE_SIZE = 6n; // Show 6 kudos per page to fit the 2x3 grid nicely
 
@@ -19,16 +19,18 @@ type KudosPaginationArgs = {
 function useKudosReceivedQuery(args: KudosPaginationArgs, enabled: boolean) {
   const { address } = useAccount();
   const chainId = useChainId();
-  const deployment = deployments[chainId as keyof typeof deployments];
+
+  const { address: contractAddress, abi: contractAbi } =
+    getDeploymentByChainId(chainId);
 
   return useReadContract({
-    address: deployment?.address as `0x${string}`,
-    abi: deployment?.abi,
+    address: contractAddress as `0x${string}`,
+    abi: contractAbi,
     functionName: "getKudosReceived",
     args: [args],
     account: address,
     query: {
-      enabled: enabled && !!address && !!deployment,
+      enabled: enabled && !!address && !!contractAddress,
     },
   });
 }
@@ -36,16 +38,17 @@ function useKudosReceivedQuery(args: KudosPaginationArgs, enabled: boolean) {
 function useKudosSentQuery(args: KudosPaginationArgs, enabled: boolean) {
   const { address } = useAccount();
   const chainId = useChainId();
-  const deployment = deployments[chainId as keyof typeof deployments];
+  const { address: contractAddress, abi: contractAbi } =
+    getDeploymentByChainId(chainId);
 
   return useReadContract({
-    address: deployment?.address as `0x${string}`,
-    abi: deployment?.abi,
+    address: contractAddress as `0x${string}`,
+    abi: contractAbi,
     functionName: "getKudosSent",
     args: [args],
     account: address,
     query: {
-      enabled: enabled && !!address && !!deployment,
+      enabled: enabled && !!address && !!contractAddress,
     },
   });
 }
@@ -54,11 +57,11 @@ export function useKudosReceived() {
   const [page, setPage] = useState(0n);
   const { isConnected } = useAccount();
   const chainId = useChainId();
-  const deployment = deployments[chainId as keyof typeof deployments];
+  const { address: contractAddress } = getDeploymentByChainId(chainId);
 
   const { data: kudosReceived, ...restQuery } = useKudosReceivedQuery(
     { page, pageSize: DEFAULT_PAGE_SIZE },
-    isConnected && !!deployment
+    isConnected && !!contractAddress
   );
 
   const changePage = useCallback(async (newPage: number) => {
@@ -77,11 +80,11 @@ export function useKudosSent() {
   const [page, setPage] = useState(0n);
   const { isConnected } = useAccount();
   const chainId = useChainId();
-  const deployment = deployments[chainId as keyof typeof deployments];
+  const { address: contractAddress } = getDeploymentByChainId(chainId);
 
   const { data: kudosSent, ...restQuery } = useKudosSentQuery(
     { page, pageSize: DEFAULT_PAGE_SIZE },
-    isConnected && !!deployment
+    isConnected && !!contractAddress
   );
 
   const changePage = useCallback(async (newPage: number) => {
@@ -104,7 +107,8 @@ type UseSendKudoOptions = Omit<
 export function useSendKudo(options?: UseSendKudoOptions) {
   const { isConnected } = useAccount();
   const chainId = useChainId();
-  const deployment = deployments[chainId as keyof typeof deployments];
+  const { address: contractAddress, abi: contractAbi } =
+    getDeploymentByChainId(chainId);
   const queryClient = useQueryClient();
 
   // Disabled query to get the query key for invalidation below.
@@ -142,16 +146,16 @@ export function useSendKudo(options?: UseSendKudoOptions) {
   const sendKudo = useCallback(
     (to: `0x${string}`, message: string) => {
       if (!isConnected) throw new Error("Wallet not connected");
-      if (!deployment) throw new Error("Network not supported");
+      if (!contractAddress) throw new Error("Network not supported");
 
       return writeContract({
-        address: deployment.address as `0x${string}`,
-        abi: deployment.abi,
+        address: contractAddress as `0x${string}`,
+        abi: contractAbi,
         functionName: "sendKudo",
         args: [{ to, message }] as const,
       });
     },
-    [isConnected, writeContract, deployment]
+    [isConnected, writeContract, contractAddress, contractAbi]
   );
 
   return {
