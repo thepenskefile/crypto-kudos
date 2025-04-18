@@ -6,9 +6,16 @@ import { cn } from "../../utils/cn";
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   hint?: string;
+  validationText?: string;
 }
 
-export function Input({ className, label, hint, ...props }: InputProps) {
+export function Input({
+  className,
+  label,
+  hint,
+  validationText,
+  ...props
+}: InputProps) {
   const uniqueId = useId();
   const inputId = `form-input-${uniqueId}`;
 
@@ -34,10 +41,19 @@ export function Input({ className, label, hint, ...props }: InputProps) {
             "focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900/30",
             "transition-all duration-200",
             "disabled:opacity-50 disabled:cursor-not-allowed",
+            { "border-red-500 focus:ring-red-200": Boolean(validationText) },
             className
           )}
           {...props}
         />
+        {validationText && (
+          <p
+            id={`${inputId}-error`}
+            className={cn("pl-0.5 mt-1.5 text-xs text-red-500")}
+          >
+            {validationText}
+          </p>
+        )}
         {hint && (
           <p
             id={`${inputId}-hint`}

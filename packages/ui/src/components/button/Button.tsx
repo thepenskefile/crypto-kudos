@@ -43,11 +43,16 @@ export const Button = ({
       )}
       {...props}
     >
-      {isLoading ? (
-        <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-      ) : (
-        children
-      )}
+      <div className="relative">
+        <div className={cn("transition-opacity", { "opacity-0": isLoading })}>
+          {children}
+        </div>
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          </div>
+        )}
+      </div>
     </button>
   );
 };

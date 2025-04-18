@@ -7,9 +7,16 @@ export interface TextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   hint?: string;
+  validationText?: string;
 }
 
-export function Textarea({ className, label, hint, ...props }: TextareaProps) {
+export function Textarea({
+  className,
+  label,
+  hint,
+  validationText,
+  ...props
+}: TextareaProps) {
   const uniqueId = useId();
   const textareaId = `form-textarea-${uniqueId}`;
   return (
@@ -34,11 +41,19 @@ export function Textarea({ className, label, hint, ...props }: TextareaProps) {
             "focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900/30",
             "transition-[border-color,box-shadow] duration-200",
             "disabled:opacity-50 disabled:cursor-not-allowed",
+            { "border-red-500 focus:ring-red-200": Boolean(validationText) },
             className
           )}
           {...props}
         />
-
+        {validationText && (
+          <p
+            id={`${textareaId}-error`}
+            className={cn("pl-0.5 text-xs text-red-500")}
+          >
+            {validationText}
+          </p>
+        )}
         {hint && (
           <p
             id={`${textareaId}-hint`}
