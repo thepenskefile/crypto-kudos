@@ -1,5 +1,6 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Card, cn, KudosCard, PageContent } from "@repo/ui";
+import { Card, cn, PageContent } from "@repo/ui";
+import { KudosCard } from "../kudos/KudosCard";
 
 const DEMO_KUDOS = [
   {

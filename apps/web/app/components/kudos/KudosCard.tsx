@@ -1,4 +1,4 @@
-import { cn } from "../../utils/cn";
+import { cn, getColorFromAddress } from "@repo/ui";
 
 export interface KudosCardProps {
   fromAddress: string;
@@ -8,33 +8,20 @@ export interface KudosCardProps {
   color?: "blue" | "yellow" | "coral" | "mint" | "purple" | "cyan";
   className?: string;
   explorerUrl?: string;
+  onClick?: () => void;
 }
 
-const colorClasses = {
+export const KUDOS_CARD_COLOR_CLASSES = {
   blue: "bg-[var(--color-kudos-blue)]",
   yellow: "bg-[var(--color-kudos-yellow)]",
   coral: "bg-[var(--color-kudos-coral)]",
   mint: "bg-[var(--color-kudos-mint)]",
   purple: "bg-[var(--color-kudos-purple)]",
   cyan: "bg-[var(--color-kudos-cyan)]",
-};
+} as const;
 
 function truncateAddress(address: string) {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
-}
-
-function getColorFromAddress(address: string): string {
-  const hex = address.slice(0, 6);
-  const num = parseInt(hex, 16);
-
-  // Generate hue based on the number (0-360)
-  const hue = num % 360;
-
-  // Use different parts of the number for saturation and lightness
-  const saturation = 70 + ((num >> 8) % 30); // Use bits 8-15 for saturation
-  const lightness = 50 + ((num >> 16) % 20); // Use bits 16-23 for lightness
-
-  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
 export function KudosCard({
@@ -44,15 +31,25 @@ export function KudosCard({
   emoji,
   color = "blue",
   className,
-  explorerUrl,
+  onClick,
 }: KudosCardProps) {
   return (
     <div
       className={cn(
         "rounded-xl p-4 shadow-lg transition-transform hover:scale-[1.02] dark:text-text-primary-light",
-        colorClasses[color],
+        { "cursor-pointer": Boolean(onClick) },
+        KUDOS_CARD_COLOR_CLASSES[color],
         className
       )}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
     >
       {emoji && <div className="text-2xl mb-2">{emoji}</div>}
       <div className="flex items-center gap-2 mb-1">
@@ -78,16 +75,6 @@ export function KudosCard({
         </div>
       </div>
       <div className="font-medium text-lg">{message}</div>
-      {explorerUrl && (
-        <a
-          href={explorerUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs opacity-70 hover:opacity-100 transition-opacity mt-2 block"
-        >
-          View on Explorer ↗
-        </a>
-      )}
     </div>
   );
 }
