@@ -1,2 +1,1 @@
-export * from "./deployments";
-export * from "./kudos";
+export * from "./getDeployment";
