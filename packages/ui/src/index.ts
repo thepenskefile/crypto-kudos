@@ -6,4 +6,5 @@ export * from "./components/tabs";
 export * from "./components/card";
 export * from "./components/modal";
 export * from "./components/pagination";
+export * from "./components/alert";
 export { cn } from "./utils/cn";

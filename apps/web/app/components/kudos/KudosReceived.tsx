@@ -1,7 +1,7 @@
 "use client";
 
 import { KudosCard, KudosCardProps, Pagination } from "@repo/ui";
-import { useKudos } from "../../hooks/useKudos";
+import { useKudosReceived } from "../../hooks/useKudos";
 import { NoKudos } from "./NoKudos";
 
 const CARD_COLORS: KudosCardProps["color"][] = [
@@ -21,11 +21,11 @@ const CARD_EMOJIS: KudosCardProps["emoji"][] = [
 ] as const;
 
 export function KudosReceived() {
-  const { kudosReceived, changeReceivedPage } = useKudos();
+  const { kudosReceived, changePage } = useKudosReceived();
 
   const handlePageChange = async (page: number) => {
     // Convert to 0-based index for the contract
-    await changeReceivedPage(page - 1);
+    await changePage(page - 1);
   };
 
   if (!kudosReceived || kudosReceived.kudos.length === 0) {

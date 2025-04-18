@@ -6,6 +6,7 @@ import { cn } from "../../utils/cn";
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
+  isLoading?: boolean;
 }
 
 export const Button = ({
@@ -15,12 +16,13 @@ export const Button = ({
   type = "button",
   variant = "primary",
   size = "md",
+  isLoading = false,
   ...props
 }: ButtonProps) => {
   return (
     <button
       type={type}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       className={cn(
         "inline-flex items-center justify-center rounded-xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer font-semibold hover:scale-[1.02] shadow-md",
         {
@@ -41,7 +43,11 @@ export const Button = ({
       )}
       {...props}
     >
-      {children}
+      {isLoading ? (
+        <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+      ) : (
+        children
+      )}
     </button>
   );
 };
