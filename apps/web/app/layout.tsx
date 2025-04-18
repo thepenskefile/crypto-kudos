@@ -5,6 +5,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 
 import "./globals.css";
 import { Web3Provider } from "./providers/Web3Provider";
+import { Footer } from "./components/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${jakarta.variable} font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} ${jakarta.variable} font-sans min-h-screen flex flex-col`}
       >
         <ThemeProvider
           attribute="class"
@@ -42,7 +43,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Web3Provider>{children}</Web3Provider>
+          <Web3Provider>
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </Web3Provider>
         </ThemeProvider>
       </body>
     </html>

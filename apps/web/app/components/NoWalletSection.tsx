@@ -41,59 +41,68 @@ export function NoWalletSection() {
         <ConnectButton />
       </Card>
 
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        {/* Demo cards wrapper - hide on small screens */}
-        <div className="hidden md:block">
-          {/* Top left card */}
-          <DemoCardWrapper className="-left-5 -top-10 -rotate-6">
-            <KudosCard
-              fromAddress="0x6243...8326"
-              toAddress="0xabcd...efgh"
-              message={DEMO_KUDOS[0].message}
-              color={DEMO_KUDOS[0].color}
-              emoji={DEMO_KUDOS[0].emoji}
-            />
-          </DemoCardWrapper>
-          {/* Top right card */}
-          <DemoCardWrapper className="-right-5 -top-12 rotate-15">
-            <KudosCard
-              fromAddress="0x9943...3438"
-              toAddress="0xabcd...efgh"
-              message={DEMO_KUDOS[1].message}
-              color={DEMO_KUDOS[1].color}
-              emoji={DEMO_KUDOS[1].emoji}
-            />
-          </DemoCardWrapper>
-          {/* Bottom card */}
-          <DemoCardWrapper className="-left-5 -bottom-15 rotate-5">
-            <KudosCard
-              fromAddress="0x2509...4681"
-              toAddress="0xabcd...efgh"
-              message={DEMO_KUDOS[2].message}
-              color={DEMO_KUDOS[2].color}
-              emoji={DEMO_KUDOS[2].emoji}
-            />
-          </DemoCardWrapper>
-        </div>
+      {/* Demo cards wrapper - hide on small screens */}
+      <div className="hidden md:block absolute inset-0 z-10 pointer-events-none">
+        {/* Top left card */}
+        <DemoCardWrapper className="-left-5 -top-10 -rotate-6">
+          <KudosCard
+            fromAddress="0x6243...8326"
+            toAddress="0xabcd...efgh"
+            message={DEMO_KUDOS[0].message}
+            color={DEMO_KUDOS[0].color}
+            emoji={DEMO_KUDOS[0].emoji}
+          />
+        </DemoCardWrapper>
+        {/* Top right card */}
+        <DemoCardWrapper className="-right-5 -top-12 rotate-15">
+          <KudosCard
+            fromAddress="0x9943...3438"
+            toAddress="0xabcd...efgh"
+            message={DEMO_KUDOS[1].message}
+            color={DEMO_KUDOS[1].color}
+            emoji={DEMO_KUDOS[1].emoji}
+          />
+        </DemoCardWrapper>
+        {/* Bottom card */}
+        <DemoCardWrapper className="-left-5 -bottom-15 rotate-5">
+          <KudosCard
+            fromAddress="0x2509...4681"
+            toAddress="0xabcd...efgh"
+            message={DEMO_KUDOS[2].message}
+            color={DEMO_KUDOS[2].color}
+            emoji={DEMO_KUDOS[2].emoji}
+          />
+        </DemoCardWrapper>
+      </div>
 
-        {/* Mobile demo cards - show only on small screens */}
-        <div className="block md:hidden">
-          <div className="absolute top-full left-0 right-0 mt-6 flex flex-col items-center gap-4">
-            {DEMO_KUDOS.map((kudos, index) => (
-              <div
-                key={index}
-                className="w-full max-w-[280px] transform transition-transform hover:scale-105"
-              >
-                <KudosCard
-                  fromAddress="0x6243...8326"
-                  toAddress="0xabcd...efgh"
-                  message={kudos.message}
-                  color={kudos.color}
-                  emoji={kudos.emoji}
-                />
-              </div>
-            ))}
-          </div>
+      {/* Mobile demo cards - show only on small screens */}
+      <div className="block md:hidden mt-20 mb-10">
+        <p className="text-center text-lg font-medium text-gray-700 dark:text-gray-300 mb-8 font-jakarta">
+          Join the movement.{" "}
+          <span className="text-blue-600 dark:text-blue-400">
+            Spread the appreciation.
+          </span>
+        </p>
+        <div className="flex flex-col items-center gap-6">
+          {DEMO_KUDOS.map((kudos, index) => (
+            <div
+              key={index}
+              className={cn(
+                "w-full max-w-[280px] transform transition-all duration-300 hover:scale-105 hover:rotate-0",
+                index === 0 && "-rotate-3",
+                index === 1 && "rotate-2",
+                index === 2 && "-rotate-2"
+              )}
+            >
+              <KudosCard
+                fromAddress="0x6243...8326"
+                toAddress="0xabcd...efgh"
+                message={kudos.message}
+                color={kudos.color}
+                emoji={kudos.emoji}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </PageContent>
