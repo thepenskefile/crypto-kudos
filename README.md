@@ -2,6 +2,14 @@
 
 Crypto Kudos is a decentralised application that allows users to send and receive digital kudos (compliments or acknowledgments) on the blockchain. Built with modern web3 technologies, it provides a seamless way to recognize and appreciate people for their actions, achievements, or simply being awesome in a verifiable and permanent manner.
 
+## Production Deployment
+
+The application is currently deployed to the Sepolia testnet and can be accessed at [https://crypto-kudos.vercel.app/](https://crypto-kudos.vercel.app/). To interact with the application, you'll need to:
+
+1. Connect your wallet to the Sepolia testnet
+2. Ensure you have some Sepolia ETH for gas fees
+3. Start sending and receiving kudos!
+
 ## Project Structure
 
 This monorepo contains the following packages:
