@@ -6,10 +6,19 @@
     "compile": "hardhat compile",
     "deploy": "hardhat run scripts/deploy.ts --network localhost",
     "hardhat:node": "npx hardhat node",
-    "clean": "rm -rf .turbo node_modules artifacts cache"
+    "clean": "rm -rf .turbo node_modules artifacts cache",
+    "test": "hardhat test"
+  },
+  "dependencies": {
+    "@repo/shared": "*"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
-    "hardhat": "^2.23.0"
+    "hardhat": "^2.23.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@typechain/hardhat": "^8.0.0",
+    "chai": "^4.3.7",
+    "typechain": "^8.3.0",
+    "typescript": "^5.3.3"
   }
 }
