@@ -29,14 +29,17 @@ const config = getDefaultConfig({
   appName: "Crypto Kudos",
   projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string,
   chains: [
-    hardhatLocal,
+    sepolia,
+    ...(typeof window !== "undefined" &&
+    window.location.hostname === "localhost"
+      ? [hardhatLocal]
+      : []),
     // mainnet,
     // base,
-    sepolia,
   ],
   ssr: true,
   appDescription: "Send kudos on the blockchain",
-  appUrl: "http://localhost:3000",
+  appUrl: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
 });
 
 const queryClient = new QueryClient();
