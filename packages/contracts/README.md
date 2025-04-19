@@ -73,14 +73,14 @@ BASESCAN_API_KEY=your_basescan_api_key
 
 1. Ensure you have test ETH in your wallet. You can get some from:
 
-   - Sepolia faucet: https://sepoliafaucet.com
-   - Alchemy faucet: https://sepoliafaucet.com/
-   - Layer0 faucet: https://faucet.quicknode.com/ethereum/sepolia
+   - Sepolia faucet: <https://sepoliafaucet.com>
+   - Alchemy faucet: <https://sepoliafaucet.com/>
+   - Layer0 faucet: <https://faucet.quicknode.com/ethereum/sepolia>
 
 2. Deploy to Sepolia:
 
 ```bash
-npx hardhat run scripts/deploy.ts --network sepolia
+npm run deploy:sepolia
 ```
 
 3. The script will:
@@ -128,7 +128,7 @@ If you get API rate limit errors, wait a few minutes and try again.
 2. Deploy to mainnet:
 
 ```bash
-npx hardhat run scripts/deploy.ts --network mainnet
+npm run deploy:mainnet
 ```
 
 3. The script will:
@@ -152,7 +152,7 @@ npx hardhat run scripts/deploy.ts --network mainnet
 2. Deploy to Base:
 
 ```bash
-npx hardhat run scripts/deploy.ts --network base
+npm run deploy:base
 ```
 
 3. The script will:
@@ -161,74 +161,24 @@ npx hardhat run scripts/deploy.ts --network base
    - Update the frontend configuration
    - Verify the contract on Basescan
 
-### Frontend Deployment Configuration
-
-After deploying to different networks, you need to configure your frontend deployment:
-
-1. Create a deployment configuration file in the shared package:
-
-```bash
-cd packages/shared/src
-touch deployments.ts
-```
-
-2. Add the following content to `deployments.ts`:
-
-```typescript
-import { mainnetDeployment } from "./deployments/mainnet.json";
-import { sepoliaDeployment } from "./deployments/sepolia.json";
-import { baseDeployment } from "./deployments/base.json";
-
-export const deployments = {
-  // Mainnets
-  1: mainnetDeployment, // Ethereum
-  8453: baseDeployment, // Base
-  // Testnets
-  11155111: sepoliaDeployment, // Sepolia
-} as const;
-
-export type ChainId = keyof typeof deployments;
-```
-
-3. Configure your Vercel deployment:
-
-   - Go to your project settings in Vercel
-   - Under "Environment Variables", add:
-     ```
-     NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_wallet_connect_project_id
-     ```
-   - Deploy your frontend
-
-4. The frontend will now:
-   - Load the correct contract address based on the user's connected network
-   - Show appropriate network options in the wallet connection UI
-   - Handle contract interactions across different networks
-
 ### Post-Deployment
 
 1. Commit the new deployment files:
 
 ```bash
-git add deployments/
+git add -A
 git commit -m "Deploy contract to <network>"
 ```
 
-2. Update your frontend to use the new contract addresses:
-
-```bash
-cd ../shared
-npm run build
-```
-
-3. Test the frontend with the new deployment
+2. Test the frontend with the new deployment
 
 ### Deployment History
 
 All deployments are tracked in the `deployments/` directory:
 
-- `deployments/sepolia.json` - Sepolia testnet deployments
-- `deployments/mainnet.json` - Mainnet deployments
-- `deployments/base.json` - Base mainnet deployments
+- `deployments/31337.json` - Sepolia testnet deployments
+- `deployments/1.json` - Mainnet deployments
+- `deployments/8453.json` - Base mainnet deployments
 
 Each deployment record includes:
 
