@@ -96,10 +96,6 @@ npm run dev
 - `npm run hardhat:node` - Start local Hardhat node
 - `npm run test` - Run contract tests
 
-### Shared Package
-
-- `npm run build` - Build smart contract types for use in the frontend
-
 ### Web Package
 
 - `npm run dev` - Start development server

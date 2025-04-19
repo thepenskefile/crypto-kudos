@@ -1,12 +1,16 @@
 import { deployment31337 } from "./deployments.31337";
 import { deployment11155111 } from "./deployments.11155111";
-
+import { deployment8453 } from "./deployments.8453";
 type ChainId = number; // Add more chain IDs as needed
-type Deployment = typeof deployment31337 | typeof deployment11155111;
+type Deployment =
+  | typeof deployment31337
+  | typeof deployment11155111
+  | typeof deployment8453;
 
 const deployments: Record<ChainId, Deployment> = {
   31337: deployment31337,
   11155111: deployment11155111,
+  8453: deployment8453,
 } as const;
 
 export function getDeploymentByChainId(chainId: ChainId) {

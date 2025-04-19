@@ -23,12 +23,6 @@ npx hardhat node
 npm run deploy
 ```
 
-4. Build the shared package for use in the frontend:
-
-```bash
-npm run build
-```
-
 This will:
 
 - Deploy the Kudos contract to the local network
