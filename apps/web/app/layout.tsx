@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { Toaster } from "sonner";
 
 import "./globals.css";
 import { Web3Provider } from "./providers/Web3Provider";
@@ -46,6 +47,7 @@ export default function RootLayout({
           <Web3Provider>
             <main className="flex-1">{children}</main>
             <Footer />
+            <Toaster />
           </Web3Provider>
         </ThemeProvider>
       </body>
