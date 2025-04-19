@@ -4,6 +4,7 @@ import { ErrorMessage } from "../common/ErrorMessage";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 
 const ethereumAddressRegex = /^0x[a-fA-F0-9]{40}$/;
 
@@ -30,7 +31,7 @@ export function SendKudosModal({ modal }: { modal: UseModalState }) {
     },
   });
 
-  const { sendKudo, isPending, isError, error } = useSendKudo({
+  const { sendKudo, isPending, isError, error, reset } = useSendKudo({
     mutation: {
       onSuccess: () => {
         modal.close();
@@ -41,6 +42,13 @@ export function SendKudosModal({ modal }: { modal: UseModalState }) {
   function handleSendKudos(formData: Schema) {
     sendKudo(formData.toAddress as `0x${string}`, formData.message);
   }
+
+  useEffect(() => {
+    return () => {
+      formMethods.reset();
+      reset();
+    };
+  }, [formMethods, reset]);
 
   return (
     <Modal visible={modal.visible} onClose={modal.close}>

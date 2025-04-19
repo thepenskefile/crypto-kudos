@@ -4,22 +4,22 @@ import { KudosCard } from "../kudos/KudosCard";
 
 const DEMO_KUDOS = [
   {
-    fromAddress: "0x6243...8326",
-    toAddress: "0x9932...4822",
+    fromAddress: "0xf39F...2266",
+    toAddress: "0x7099...79C8",
     message: "You went out of your way to help — really appreciate it. ✨",
     color: "blue" as const,
     emoji: "🎉" as const,
   },
   {
-    fromAddress: "0x9923...3438",
-    toAddress: "0x3467...wggt",
+    fromAddress: "0x3C44...93BC",
+    toAddress: "0x9965...A4dc",
     message: "Your attention to detail never goes unnoticed. 🤝",
     color: "yellow" as const,
     emoji: "🙌" as const,
   },
   {
-    fromAddress: "0x2509...4681",
-    toAddress: "03534...fdse",
+    fromAddress: "0x90F7...b906",
+    toAddress: "0x15d3...6A65",
     message: "Just wanted to say, you're doing an awesome job.",
     color: "coral" as const,
     emoji: "💯" as const,
