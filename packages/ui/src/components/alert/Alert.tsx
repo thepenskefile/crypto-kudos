@@ -21,7 +21,7 @@ export function Alert({
     <div
       role="alert"
       className={twMerge(
-        clsx("", [
+        clsx("overflow-hidden", [
           variant === "tint" && [
             "border-l-4 p-7",
             {
@@ -51,9 +51,9 @@ export function Alert({
       )}
     >
       <div className="flex flex-row align-top">
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           {title && <div className="mb-2 font-semibold">{title}</div>}
-          <div>{children}</div>
+          <div className="break-words overflow-hidden">{children}</div>
         </div>
       </div>
     </div>

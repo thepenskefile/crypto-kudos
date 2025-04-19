@@ -5,6 +5,10 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
+import { toast } from "sonner";
+import Link from "next/link";
+
+import { useGetExplorerUrl } from "../../hooks/useGetExplorerUrl";
 
 const ethereumAddressRegex = /^0x[a-fA-F0-9]{40}$/;
 
@@ -21,6 +25,8 @@ const schema = z.object({
 export type Schema = z.infer<typeof schema>;
 
 export function SendKudosModal({ modal }: { modal: UseModalState }) {
+  const { getExplorerUrl } = useGetExplorerUrl();
+
   const formMethods = useForm<Schema>({
     resolver: zodResolver(schema),
     mode: "onBlur",
@@ -33,8 +39,37 @@ export function SendKudosModal({ modal }: { modal: UseModalState }) {
 
   const { sendKudo, isPending, isError, error, reset } = useSendKudo({
     mutation: {
-      onSuccess: () => {
+      onSuccess: (transactionHash) => {
         modal.close();
+
+        toast.success(
+          () => (
+            <div>
+              Kudos sent! Keep track of it{" "}
+              <Link
+                href={getExplorerUrl(transactionHash)}
+                rel="noreferrer"
+                target="_blank"
+                className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium underline-offset-2 hover:underline"
+              >
+                here
+              </Link>
+              .
+            </div>
+          ),
+          {
+            duration: Infinity,
+            description: () => (
+              <button
+                type="button"
+                onClick={() => toast.dismiss()}
+                className="cursor-pointer mt-2 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+              >
+                Dismiss
+              </button>
+            ),
+          }
+        );
       },
     },
   });

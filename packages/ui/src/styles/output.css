@@ -572,6 +572,9 @@
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
   }
+  .break-words {
+    overflow-wrap: break-word;
+  }
   .text-blue-600 {
     color: var(--color-blue-600);
   }
