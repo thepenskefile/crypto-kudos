@@ -2,18 +2,12 @@
 
 import "@rainbow-me/rainbowkit/styles.css";
 
-import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { WagmiProvider } from "wagmi";
-import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  base,
-  sepolia,
-  Chain,
-} from "wagmi/chains";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { WagmiProvider, createConfig } from "wagmi";
+import { sepolia, Chain, base, mainnet } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { injected } from "wagmi/connectors";
+import { http } from "wagmi";
 
 const hardhatLocal = {
   id: 31337,
@@ -25,21 +19,24 @@ const hardhatLocal = {
   },
 } as const satisfies Chain;
 
-const config = getDefaultConfig({
-  appName: "Crypto Kudos",
-  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string,
+const config = createConfig({
+  connectors: [injected()],
   chains: [
     sepolia,
+    mainnet,
+    base,
     ...(typeof window !== "undefined" &&
     window.location.hostname === "localhost"
       ? [hardhatLocal]
       : []),
-    // mainnet,
-    // base,
   ],
+  transports: {
+    [sepolia.id]: http(),
+    [hardhatLocal.id]: http(),
+    [mainnet.id]: http(),
+    [base.id]: http(),
+  },
   ssr: true,
-  appDescription: "Send kudos on the blockchain",
-  appUrl: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
 });
 
 const queryClient = new QueryClient();
