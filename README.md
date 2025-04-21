@@ -4,10 +4,16 @@ Crypto Kudos is a decentralised application that allows users to send and receiv
 
 ## Production Deployment
 
-The application is currently deployed to the Sepolia testnet and can be accessed at [https://crypto-kudos.vercel.app/](https://crypto-kudos.vercel.app/). To interact with the application, you'll need to:
+The smart contract is currently deployed to the Sepolia testnet, Base network, and the Ethereum mainnet and can be accessed at [https://crypto-kudos.vercel.app/](https://crypto-kudos.vercel.app/). To interact with the application, you'll need to:
 
-1. Connect your wallet to the Sepolia testnet
-2. Ensure you have some Sepolia ETH for gas fees
+1. Connect your wallet to one of the supported networks:
+   - Sepolia testnet (for testing)
+   - Base network
+   - Ethereum mainnet
+2. Ensure you have the appropriate native token for gas fees:
+   - Sepolia ETH for Sepolia testnet
+   - ETH for Base network
+   - ETH for Ethereum mainnet
 3. Start sending and receiving kudos!
 
 ![Example 2](./demo-images/crypto-kudos-not-connected.png)
